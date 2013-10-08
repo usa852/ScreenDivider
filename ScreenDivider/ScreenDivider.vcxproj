@@ -99,6 +99,9 @@
     <None Include="res\ScreenDivider.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="DLLInjector.h" />
+    <ClInclude Include="ntdll.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScreenDivider.h" />
     <ClInclude Include="ScreenDividerDlg.h" />
@@ -106,6 +109,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="common.cpp" />
+    <ClCompile Include="DLLInjector.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
     <ClCompile Include="ScreenDividerDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
