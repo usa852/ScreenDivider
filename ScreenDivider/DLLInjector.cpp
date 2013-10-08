@@ -165,7 +165,7 @@ EXIT:
 
 BOOL DLLInjector::IsDllInProcess(DWORD dwPID, CString szDllPath)
 {
-	BOOL	isSuccess = TRUE;
+	BOOL	isSuccess = FALSE;
 
 	// Get the snapshot of system
 	HANDLE	hSnapshot = INVALID_HANDLE_VALUE;
@@ -184,7 +184,7 @@ BOOL DLLInjector::IsDllInProcess(DWORD dwPID, CString szDllPath)
 	// Loop all modules
 	do
 	{
-		if (!szDllPath.Compare(me.szModule))
+		if (!szDllPath.Compare(me.szExePath))
 		{
 			isSuccess = TRUE;
 			break;
