@@ -14,3 +14,4 @@ HANDLE MyCreateRemoteThread
 	LPDWORD					lpThreadId
 );
 DWORD FindPID(CString szProcessName);
+BOOL SetTransparentWindow(HWND hWnd, BYTE bAlpha);
