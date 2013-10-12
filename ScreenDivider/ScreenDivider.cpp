@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "ScreenDivider.h"
 #include "ScreenDividerDlg.h"
+#include "AeroDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,7 +66,7 @@ BOOL CScreenDividerApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CScreenDividerDlg dlg;
+	CAeroDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
