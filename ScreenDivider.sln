@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScreenDivider", "ScreenDivider\ScreenDivider.vcxproj", "{818AF82B-D065-489E-BFB6-ECB5202D59EC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScreenDividerHk", "ScreenDividerHk\ScreenDividerHk.vcxproj", "{B3C46E80-CD51-42BE-A268-0115AB29AFD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,14 @@ Global
 		{818AF82B-D065-489E-BFB6-ECB5202D59EC}.Release|Win32.Build.0 = Release|Win32
 		{818AF82B-D065-489E-BFB6-ECB5202D59EC}.Release|x64.ActiveCfg = Release|x64
 		{818AF82B-D065-489E-BFB6-ECB5202D59EC}.Release|x64.Build.0 = Release|x64
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Debug|Win32.Build.0 = Debug|Win32
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Debug|x64.ActiveCfg = Debug|x64
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Debug|x64.Build.0 = Debug|x64
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Release|Win32.ActiveCfg = Release|Win32
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Release|Win32.Build.0 = Release|Win32
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Release|x64.ActiveCfg = Release|x64
+		{B3C46E80-CD51-42BE-A268-0115AB29AFD1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
