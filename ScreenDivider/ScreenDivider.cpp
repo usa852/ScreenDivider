@@ -25,7 +25,11 @@ BOOL InstallHook()
 
 	// Load library to get address of procedure('StartWndProcHook()')
 	HMODULE hModule;
+#ifdef _X64
+	hModule = LoadLibrary(L"ScreenDividerHk64.dll");
+#else
 	hModule = LoadLibrary(L"ScreenDividerHk32.dll");
+#endif
 	if (hModule == NULL)
 	{
 		isSuccess = FALSE;
