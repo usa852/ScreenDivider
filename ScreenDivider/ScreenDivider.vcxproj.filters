@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Class Files">
-      <UniqueIdentifier>{a76578cd-202b-4c8e-86ae-4f1674d80c86}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -42,13 +39,7 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DLLInjector.h">
-      <Filter>Class Files</Filter>
-    </ClInclude>
     <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ntdll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AeroDlg.h">
@@ -64,9 +55,6 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DLLInjector.cpp">
-      <Filter>Class Files</Filter>
     </ClCompile>
     <ClCompile Include="common.cpp">
       <Filter>Source Files</Filter>
