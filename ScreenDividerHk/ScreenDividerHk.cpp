@@ -8,6 +8,73 @@
 #define new DEBUG_NEW
 #endif
 
+// The one and only CScreenDividerHkApp object
+CScreenDividerHkApp theApp;
+
+// Hook procedures
+LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
+
+// Global variables
+HHOOK g_hHook;
+
+// Extern functions
+extern "C"
+{
+	__declspec(dllexport) BOOL StartWndProcHook()
+	{
+		BOOL isSuccess = TRUE;
+
+		// Add hook procedure to hook chain
+		HHOOK hHook;
+		hHook = SetWindowsHookEx(WH_CALLWNDPROC, CallWndProc, theApp.m_hInstance, 0);
+		if (hHook == NULL)
+		{
+			isSuccess = FALSE;
+			goto EXIT;
+		}
+		
+		// Save hook handle for using in hook procedure
+		g_hHook = hHook;
+
+	EXIT:
+		return isSuccess;
+	}
+}
+
+// WH_CALLWNDPROC hook procedure
+LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	// Do not process message
+	if (nCode < 0)
+	{
+		return CallNextHookEx(g_hHook, nCode, wParam, lParam);
+	}
+
+	switch (nCode)
+	{
+	case HC_ACTION:
+		CWPSTRUCT* pCwpParam;
+		pCwpParam = (CWPSTRUCT *)lParam;
+
+		switch (pCwpParam->message)
+		{
+		case WM_MOVE:
+			UINT xPos;
+			UINT yPos;
+			xPos = LOWORD(pCwpParam->lParam);
+			yPos = HIWORD(pCwpParam->lParam);
+
+			CString strRet;
+			strRet.Format(L"%u %u\n", xPos, yPos);
+			OutputDebugString(strRet);
+			break;
+		}
+		break;
+	}
+
+	return CallNextHookEx(g_hHook, nCode, wParam, lParam);
+}
+
 //
 //TODO: If this DLL is dynamically linked against the MFC DLLs,
 //		any functions exported from this DLL which call into
@@ -46,11 +113,6 @@ CScreenDividerHkApp::CScreenDividerHkApp()
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 }
-
-
-// The one and only CScreenDividerHkApp object
-
-CScreenDividerHkApp theApp;
 
 
 // CScreenDividerHkApp initialization

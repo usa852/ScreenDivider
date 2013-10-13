@@ -17,6 +17,41 @@ BEGIN_MESSAGE_MAP(CScreenDividerApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
+// Hook start
+typedef BOOL (*PFN_STARTWNDPROCHOOK)();
+BOOL InstallHook()
+{
+	BOOL isSuccess = TRUE;
+
+	// Load library to get address of procedure('StartWndProcHook()')
+	HMODULE hModule;
+	hModule = LoadLibrary(L"ScreenDividerHk32.dll");
+	if (hModule == NULL)
+	{
+		isSuccess = FALSE;
+		goto EXIT;
+	}
+
+	// Get address of 'StartWndProcHook()'
+	PFN_STARTWNDPROCHOOK StartWndProcHook = NULL;
+	StartWndProcHook = (PFN_STARTWNDPROCHOOK)GetProcAddress(hModule, "StartWndProcHook");
+	if (StartWndProcHook == NULL)
+	{
+		isSuccess = FALSE;
+		goto EXIT;
+	}
+
+	// Call StartWndProcHook() got top
+	StartWndProcHook();
+
+EXIT:
+	if (hModule != NULL)
+	{
+		FreeLibrary(hModule);
+	}
+
+	return isSuccess;
+}
 
 // CScreenDividerApp construction
 
