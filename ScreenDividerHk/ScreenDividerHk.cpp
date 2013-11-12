@@ -58,14 +58,24 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 		switch (pCwpParam->message)
 		{
-		case WM_MOVE:
-			UINT xPos;
-			UINT yPos;
-			xPos = LOWORD(pCwpParam->lParam);
-			yPos = HIWORD(pCwpParam->lParam);
+		case WM_MOVING:
+			POINT point = {0, 0};
+			BOOL ret = 0;
 
+			// Get current mouse position
+			ret = GetCursorPos(&point);
+			if (ret == 0)
+			{
+				CString strRet;
+				strRet.Format(L"Error: %d\n", GetLastError());
+
+				OutputDebugString(strRet);
+				break;
+			}
+
+			// Print current mouse position to debug output
 			CString strRet;
-			strRet.Format(L"%u %u\n", xPos, yPos);
+			strRet.Format(L"%u %u\n", point.x, point.y);
 			OutputDebugString(strRet);
 			break;
 		}
