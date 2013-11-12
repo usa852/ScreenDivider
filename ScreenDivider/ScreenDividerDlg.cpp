@@ -12,7 +12,7 @@
 #endif
 
 
-// CScreenDividerDlg dialog
+// CScreenDividerDlg dialog.
 
 
 
