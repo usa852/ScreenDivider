@@ -16,6 +16,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Global variables
 HHOOK g_hHook;
+BOOL isInTitleBar;
 
 // Extern functions
 extern "C"
@@ -73,10 +74,24 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
+			if ((point.x < 100 && point.y < 100) ||
+				(point.x < 100 && 50 < point.y))
+			{
+				if (isInTitleBar == FALSE)
+				{
+					isInTitleBar = TRUE;
+					OutputDebugString(L"Show aero window\n");
+				}
+			}
+			else
+			{
+				isInTitleBar = FALSE;
+			}
+
 			// Print current mouse position to debug output
 			CString strRet;
 			strRet.Format(L"%u %u\n", point.x, point.y);
-			OutputDebugString(strRet);
+			//OutputDebugString(strRet);
 			break;
 		}
 		break;
