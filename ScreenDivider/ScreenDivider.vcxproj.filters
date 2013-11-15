@@ -45,6 +45,12 @@
     <ClInclude Include="AeroDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ScreenDivider.cpp">
@@ -60,6 +66,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AeroDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

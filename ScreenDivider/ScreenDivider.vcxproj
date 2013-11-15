@@ -187,6 +187,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScreenDivider.h" />
     <ClInclude Include="ScreenDividerDlg.h" />
+    <ClInclude Include="SDForm.h" />
+    <ClInclude Include="SDWindow.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -195,6 +197,8 @@
     <ClCompile Include="common.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
     <ClCompile Include="ScreenDividerDlg.cpp" />
+    <ClCompile Include="SDForm.cpp" />
+    <ClCompile Include="SDWindow.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
