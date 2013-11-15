@@ -54,6 +54,9 @@
     <ClInclude Include="EditorDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FinderDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ScreenDivider.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="EditorDlg.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FinderDlg.cpp">
+      <Filter>Source Files</Filter>s
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
