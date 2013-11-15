@@ -184,17 +184,31 @@
   <ItemGroup>
     <ClInclude Include="AeroDlg.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="EditorDlg.h" />
+    <ClInclude Include="FinderDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScreenDivider.h" />
     <ClInclude Include="ScreenDividerDlg.h" />
+    <ClInclude Include="SDForm.h" />
+    <ClInclude Include="SDWindow.h" />
+    <ClInclude Include="SettingDlg.h" />
+    <ClInclude Include="SettingGeneralDlg.h" />
+    <ClInclude Include="SettingStyleDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AeroDlg.cpp" />
     <ClCompile Include="common.cpp" />
+    <ClCompile Include="EditorDlg.cpp" />
+    <ClCompile Include="FinderDlg.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
     <ClCompile Include="ScreenDividerDlg.cpp" />
+    <ClCompile Include="SDForm.cpp" />
+    <ClCompile Include="SDWindow.cpp" />
+    <ClCompile Include="SettingDlg.cpp" />
+    <ClCompile Include="SettingGeneralDlg.cpp" />
+    <ClCompile Include="SettingStyleDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
