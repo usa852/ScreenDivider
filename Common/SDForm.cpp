@@ -1,4 +1,5 @@
-#include "StdAfx.h"
+#include "../ScreenDivider/stdafx.h"
+#include "../ScreenDividerHk/stdafx.h"
 #include "SDForm.h"
 
 CSDForm::CSDForm(void)

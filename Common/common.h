@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include <Windows.h>
 
 #define FAIL ~0x0
 

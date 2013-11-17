@@ -84,7 +84,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -106,7 +106,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -128,7 +128,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -154,7 +154,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -182,15 +182,15 @@
     <None Include="res\ScreenDivider.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\common.h" />
+    <ClInclude Include="..\Common\SDForm.h" />
+    <ClInclude Include="..\Common\SDWindow.h" />
     <ClInclude Include="AeroDlg.h" />
-    <ClInclude Include="common.h" />
     <ClInclude Include="EditorDlg.h" />
     <ClInclude Include="FinderDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScreenDivider.h" />
     <ClInclude Include="ScreenDividerDlg.h" />
-    <ClInclude Include="SDForm.h" />
-    <ClInclude Include="SDWindow.h" />
     <ClInclude Include="SettingDlg.h" />
     <ClInclude Include="SettingGeneralDlg.h" />
     <ClInclude Include="SettingStyleDlg.h" />
@@ -198,14 +198,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\common.cpp" />
+    <ClCompile Include="..\Common\SDForm.cpp" />
+    <ClCompile Include="..\Common\SDWindow.cpp" />
     <ClCompile Include="AeroDlg.cpp" />
-    <ClCompile Include="common.cpp" />
     <ClCompile Include="EditorDlg.cpp" />
     <ClCompile Include="FinderDlg.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
     <ClCompile Include="ScreenDividerDlg.cpp" />
-    <ClCompile Include="SDForm.cpp" />
-    <ClCompile Include="SDWindow.cpp" />
     <ClCompile Include="SettingDlg.cpp" />
     <ClCompile Include="SettingGeneralDlg.cpp" />
     <ClCompile Include="SettingStyleDlg.cpp" />
