@@ -15,6 +15,7 @@ CScreenDividerHkApp theApp;
 LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Global variables
+ULARGE_INTEGER g_timeLastRefresh = {0, };
 HHOOK g_hHook;
 
 // Extern functions
@@ -37,6 +38,78 @@ extern "C"
 		g_hHook = hHook;
 
 	EXIT:
+		return isSuccess;
+	}
+
+	__declspec(dllexport) BOOL RefreshSDForm(TCHAR strSDFormPath[MAX_PATH])
+	{
+		// Because this part is C type part,
+		// variables should be declared in top.
+		BOOL isSuccess = TRUE;
+		BOOL ret;
+
+		HANDLE hFile = INVALID_HANDLE_VALUE;
+		FILETIME timeFile = {0, };
+
+		// Open file
+		hFile = CreateFile
+				(
+					strSDFormPath,			/* lpFileName */
+					GENERIC_READ,			/* dwDesiredAccess */
+					NULL,					/* dwShareMode */
+					NULL,					/* lpSecurityAttributes */
+					OPEN_EXISTING,			/* dwCreationDisposition */
+					FILE_ATTRIBUTE_NORMAL,	/* dwFlagsAndAttributes */
+					NULL
+				);
+		if (hFile == INVALID_HANDLE_VALUE)
+		{
+			isSuccess = FALSE;
+			goto EXIT;
+		}
+
+		// Get file write time
+		ret = GetFileTime(hFile, NULL, NULL, &timeFile);
+		if (ret == 0)
+		{
+			isSuccess = FALSE;
+			goto EXIT;
+		}
+
+		// Refresh g_timeLastModified
+		g_timeLastModified.LowPart = timeFile.dwLowDateTime;
+		g_timeLastModified.HighPart = timeFile.dwHighDateTime;
+
+		// Check new file is
+		if (wcsncmp(strSDFormPath, g_strSDFormPath,
+					(wcslen(strSDFormPath) < wcslen(g_strSDFormPath)) ? 
+						wcslen(g_strSDFormPath) : 
+						wcslen(strSDFormPath)
+					)
+			)
+		{
+			// If new file, initialize some datas.
+			wsprintf(g_strSDFormPath, strSDFormPath);
+			g_timeLastRefresh.QuadPart = 0;
+		}
+
+		{
+			TCHAR strRet[MAX_PATH] = {0, };
+
+			wsprintf(strRet, L"%s %d %d\n",
+							g_strSDFormPath,
+							g_timeLastModified.QuadPart,
+							g_timeLastRefresh.QuadPart
+					);
+			OutputDebugString(strRet);
+		}
+
+	EXIT:
+		if (hFile != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hFile);
+		}
+
 		return isSuccess;
 	}
 }
@@ -73,10 +146,21 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
-			// Print current mouse position to debug output
-			CString strRet;
-			strRet.Format(L"%u %u\n", point.x, point.y);
+			TCHAR strRet[MAX_PATH] = {0, };
+
+			wsprintf(strRet, L"%s %d %d\n",
+							g_strSDFormPath,
+							g_timeLastModified.QuadPart,
+							g_timeLastRefresh.QuadPart
+				);
 			OutputDebugString(strRet);
+
+			if (g_timeLastRefresh.QuadPart < g_timeLastModified.QuadPart)
+			{
+				// Reload data
+				OutputDebugString(L"Reload sdForm file\n");
+			}
+
 			break;
 		}
 		break;
