@@ -2,27 +2,95 @@
 #include "../ScreenDividerHk/stdafx.h"
 #include "SDForm.h"
 
+IMPLEMENT_SERIAL(CSDForm, CObject, 1)
+
 CSDForm::CSDForm(void)
 {
-	BOOL ret;
-
 	// Get desktop handle
-	HWND hWnd;
+	HWND hWnd = NULL;
 	hWnd = GetDesktopWindow();
 
 	// Get desktop size
-	ret = GetWindowRect(hWnd, &m_screen);
+	CSDWindow screen;
+	GetWindowRect(hWnd, &screen);
+
+	// Add screen rect to m_lstSDWindow's first item
+	m_lstSDWindow.AddHead(screen);
 }
 
 CSDForm::CSDForm(CSDWindow screen)
 {
-	m_screen = screen;
+	m_lstSDWindow.AddHead(screen);
 }
 
 CSDForm::~CSDForm(void)
 {
 	// Remove all sdwindows
 	m_lstSDWindow.RemoveAll();
+}
+
+void CSDForm::Serialize(CArchive& ar)
+{
+	CObject::Serialize(ar);
+
+	m_lstSDWindow.Serialize(ar);
+}
+
+BOOL CSDForm::LoadFromFile(TCHAR strSDFormPath[MAX_PATH])
+{
+	BOOL isSuccess = TRUE;
+	BOOL ret;
+
+	// Before load data, remove all data
+	m_lstSDWindow.RemoveAll();
+
+	// Open file
+	CFile fileSDForm;
+	ret = fileSDForm.Open(strSDFormPath, CFile::modeRead);
+	if (ret == 0)
+	{
+		isSuccess = FALSE;
+		return isSuccess;
+	}
+
+	// Create archive object
+	CArchive arSDForm(&fileSDForm, CArchive::load);
+
+	// Serialization
+	Serialize(arSDForm);
+
+	// Close the archive and file
+	arSDForm.Close();
+	fileSDForm.Close();
+
+	return isSuccess;
+}
+
+BOOL CSDForm::SaveToFile(TCHAR strSDFormPath[MAX_PATH])
+{
+	BOOL isSuccess = TRUE;
+	BOOL ret;
+
+	// Open file
+	CFile fileSDForm;
+	ret = fileSDForm.Open(strSDFormPath, CFile::modeCreate | CFile::modeWrite);
+	if (ret == 0)
+	{
+		isSuccess = FALSE;
+		return isSuccess;
+	}
+
+	// Create archive object
+	CArchive arSDForm(&fileSDForm, CArchive::store);
+
+	// Serialization
+	Serialize(arSDForm);
+
+	// Close the archive and file
+	arSDForm.Close();
+	fileSDForm.Close();
+
+	return isSuccess;
 }
 
 POSITION CSDForm::AddSDWindow(CSDWindow &newSDWindow)

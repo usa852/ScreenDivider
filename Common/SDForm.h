@@ -2,17 +2,22 @@
 #include "SDWindow.h"
 
 class CSDForm
+	: CObject
 {
+	DECLARE_SERIAL(CSDForm)
+
 public:
 	CSDForm(void);
 	CSDForm::CSDForm(CSDWindow screen);
 	~CSDForm(void);
 
 private:
-	CSDWindow m_screen;
 	CList<CSDWindow> m_lstSDWindow;
 
 public:
+	void Serialize(CArchive& ar);
+	BOOL LoadFromFile(TCHAR strSDFormPath[MAX_PATH]);
+	BOOL SaveToFile(TCHAR strSDFormPath[MAX_PATH]);
 	VOID RemoveSDWindow(POSITION pos);
 	POSITION AddSDWindow(CSDWindow &newSDWindow);
 	POSITION AddSDWindow(int l, int t, int r, int b);
