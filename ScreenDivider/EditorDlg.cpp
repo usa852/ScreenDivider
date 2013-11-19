@@ -33,7 +33,6 @@ BEGIN_MESSAGE_MAP(CEditorDlg, CDialogEx)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
-	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -76,21 +75,6 @@ void CEditorDlg::OnMouseMove(UINT nFlags, CPoint point)
 	CDialogEx::OnMouseMove(nFlags, point);
 }
 
-
-void CEditorDlg::OnPaint()
-{
-	 // device context for painting
-	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
-	//
-	if (m_isDown)
-	{
-		
-		InvalidateRect(NULL, TRUE);
-	}
-	// 그리기 메시지에 대해서는 CDialogEx::OnPaint()을(를) 호출하지 마십시오.
-}
-
-
 BOOL CEditorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -98,6 +82,22 @@ BOOL CEditorDlg::OnInitDialog()
 	m_isDown = false;
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	// Get current dialog handle
+	HWND hDlg = NULL;
+	hDlg = GetSafeHwnd();
+
+	// Set transparent
+	SetTransparentWindow(hDlg, 128);
+	
+	// Get screen
+	CWnd *pScreen;
+	pScreen = GetDesktopWindow();
+
+	CRect rectScreen;
+	pScreen->GetWindowRect(rectScreen);
+
+	// Resize to screen
+	MoveWindow(rectScreen);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
