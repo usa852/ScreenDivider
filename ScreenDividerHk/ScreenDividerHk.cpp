@@ -17,6 +17,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 // Global variables
 ULARGE_INTEGER g_timeLastRefresh = {0, };
 HHOOK g_hHook;
+BOOL isInTitleBar;
 
 // Extern functions
 extern "C"
@@ -160,7 +161,6 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				// Reload data
 				OutputDebugString(L"Reload sdForm file\n");
 			}
-
 			break;
 		}
 		break;

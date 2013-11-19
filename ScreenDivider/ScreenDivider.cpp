@@ -5,6 +5,12 @@
 #include "stdafx.h"
 #include "ScreenDivider.h"
 #include "ScreenDividerDlg.h"
+#include "AeroDlg.h"
+#include "EditorDlg.h"
+#include "FinderDlg.h"
+#include "SettingDlg.h"
+#include "SettingGeneralDlg.h"
+#include "SettingStyleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -145,9 +151,9 @@ BOOL CScreenDividerApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CScreenDividerDlg dlg;
-	m_pMainWnd = &dlg;
-	INT_PTR nResponse = dlg.DoModal();
+	CEditorDlg dlgEditor;
+	m_pMainWnd = &dlgEditor;
+	INT_PTR nResponse = dlgEditor.DoModal();
 	if (nResponse == IDOK)
 	{
 		// TODO: Place code here to handle when the dialog is
