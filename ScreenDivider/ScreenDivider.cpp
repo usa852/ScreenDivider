@@ -6,6 +6,11 @@
 #include "ScreenDivider.h"
 #include "ScreenDividerDlg.h"
 #include "AeroDlg.h"
+#include "EditorDlg.h"
+#include "FinderDlg.h"
+#include "SettingDlg.h"
+#include "SettingGeneralDlg.h"
+#include "SettingStyleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,7 +72,7 @@ CScreenDividerApp::CScreenDividerApp()
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
-	InstallHook();
+	//InstallHook();
 }
 
 
@@ -106,9 +111,9 @@ BOOL CScreenDividerApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CAeroDlg dlg;
-	m_pMainWnd = &dlg;
-	INT_PTR nResponse = dlg.DoModal();
+	CFinderDlg dlgFinder;
+	m_pMainWnd = &dlgFinder;
+	INT_PTR nResponse = dlgFinder.DoModal();
 	if (nResponse == IDOK)
 	{
 		// TODO: Place code here to handle when the dialog is
