@@ -1,4 +1,5 @@
 #pragma once
+#include "SDForm.h"
 
 
 // CEditorDlg 대화 상자입니다.
@@ -18,4 +19,14 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+private:
+	CPoint m_start,m_end;
+	bool m_isDown;
+	CSDForm form;
+public:
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnPaint();
+	virtual BOOL OnInitDialog();
 };
