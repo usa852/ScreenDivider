@@ -32,3 +32,16 @@ END_MESSAGE_MAP()
 
 
 // CFinderDlg 메시지 처리기입니다.
+
+
+BOOL CFinderDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	// Fill background with white
+	SetBackgroundColor(RGB(255, 255, 255));
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}
