@@ -178,6 +178,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="res\bitmap1.bmp" />
+    <None Include="res\cursor1.cur" />
     <None Include="res\ScreenDivider.ico" />
     <None Include="res\ScreenDivider.rc2" />
   </ItemGroup>

@@ -22,6 +22,12 @@
     <None Include="res\ScreenDivider.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\cursor1.cur">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScreenDivider.h">
