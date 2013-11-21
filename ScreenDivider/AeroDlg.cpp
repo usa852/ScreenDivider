@@ -86,6 +86,9 @@ BOOL CAeroDlg::OnInitDialog()
 		// Error handling
 	}
 
+	// Fill background with white
+	SetBackgroundColor(RGB(255, 255, 255));
+
 	return TRUE;
 }
 
