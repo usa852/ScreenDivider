@@ -18,4 +18,14 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedAeroStyle();
+	afx_msg void OnBnClickedFlatStyle();
+	afx_msg void OnBnClickedStyleRed();
+	afx_msg void OnBnClickedStyleGreen();
+	afx_msg void OnBnClickedStyleBlue();
+//	BOOL m_nb;
+private:
+	unsigned int m_uiStyle;
+	unsigned int m_uiColor;
 };

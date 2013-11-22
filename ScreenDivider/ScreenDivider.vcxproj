@@ -178,7 +178,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="res\cursor1.cur" />
     <None Include="res\EXIT.bmp" />
     <None Include="res\EXIT_DISABLED.bmp" />
     <None Include="res\EXIT_HOVER.bmp" />

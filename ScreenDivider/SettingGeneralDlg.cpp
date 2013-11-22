@@ -15,6 +15,7 @@ CSettingGeneralDlg::CSettingGeneralDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CSettingGeneralDlg::IDD, pParent)
 {
 
+	m_uiResizeForm = 0;
 }
 
 CSettingGeneralDlg::~CSettingGeneralDlg()
@@ -24,6 +25,8 @@ CSettingGeneralDlg::~CSettingGeneralDlg()
 void CSettingGeneralDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Radio(pDX, IDC_ABSOLUTE_RESIZE, (int&)m_uiResizeForm);
+	DDX_Check(pDX, IDC_START_AUTO, m_bStartAuto);
 }
 
 
