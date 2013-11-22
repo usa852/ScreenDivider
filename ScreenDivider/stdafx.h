@@ -43,6 +43,7 @@
 
 // User defined controls
 #include "BitmapButtonEx.h"
+#include "FlatDialogEx.h"
 
 
 

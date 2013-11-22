@@ -202,6 +202,7 @@
     <ClInclude Include="BitmapButtonEx.h" />
     <ClInclude Include="EditorDlg.h" />
     <ClInclude Include="FinderDlg.h" />
+    <ClInclude Include="FlatDialogEx.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScreenDivider.h" />
     <ClInclude Include="ScreenDividerDlg.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="BitmapButtonEx.cpp" />
     <ClCompile Include="EditorDlg.cpp" />
     <ClCompile Include="FinderDlg.cpp" />
+    <ClCompile Include="FlatDialogEx.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
     <ClCompile Include="ScreenDividerDlg.cpp" />
     <ClCompile Include="SettingDlg.cpp" />
