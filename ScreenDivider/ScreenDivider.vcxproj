@@ -178,6 +178,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="res\EXIT.bmp" />
+    <None Include="res\EXIT_DISABLED.bmp" />
+    <None Include="res\EXIT_HOVER.bmp" />
+    <None Include="res\EXIT_OVER.bmp" />
+    <None Include="res\EXIT_SEL.bmp" />
+    <None Include="res\MAX.bmp" />
+    <None Include="res\MAX_DISABLED.bmp" />
+    <None Include="res\MAX_HOVER.bmp" />
+    <None Include="res\MAX_SEL.bmp" />
+    <None Include="res\MIN.bmp" />
+    <None Include="res\MIN_DISABLED.BMP" />
+    <None Include="res\MIN_HOVER.bmp" />
+    <None Include="res\MIN_SEL.bmp" />
     <None Include="res\ScreenDivider.ico" />
     <None Include="res\ScreenDivider.rc2" />
   </ItemGroup>

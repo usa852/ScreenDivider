@@ -22,6 +22,45 @@
     <None Include="res\ScreenDivider.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\EXIT.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_OVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN_DISABLED.BMP">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScreenDivider.h">
