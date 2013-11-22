@@ -41,6 +41,8 @@
 // Common headers
 #include "../Common/common.h"
 
+// User defined controls
+#include "BitmapButtonEx.h"
 
 
 
