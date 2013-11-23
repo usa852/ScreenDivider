@@ -9,10 +9,10 @@
 
 // CFinderDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CFinderDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CFinderDlg, CFlatDialogEx)
 
 CFinderDlg::CFinderDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CFinderDlg::IDD, pParent)
+	: CFlatDialogEx(CFinderDlg::IDD, pParent)
 {
 	m_btnFinder.LoadBitmaps(IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER);
 	m_Y = 0;
@@ -27,7 +27,7 @@ CFinderDlg::~CFinderDlg()
 
 void CFinderDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CFlatDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_FINDER, m_btnFinder);
 	DDX_Text(pDX, IDC_STATIC_Y, m_Y);
 	DDX_Text(pDX, IDC_STATIC_X, m_X);
@@ -36,7 +36,7 @@ void CFinderDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CFinderDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CFinderDlg, CFlatDialogEx)
 END_MESSAGE_MAP()
 
 
@@ -65,5 +65,5 @@ BOOL CFinderDlg::PreTranslateMessage(MSG* pMsg)
 		}
 	}
 
-	return CDialogEx::PreTranslateMessage(pMsg);
+	return CFlatDialogEx::PreTranslateMessage(pMsg);
 }

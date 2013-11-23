@@ -28,4 +28,6 @@ public:
 private:
 	unsigned int m_uiStyle;
 	unsigned int m_uiColor;
+public:
+	virtual BOOL OnInitDialog();
 };

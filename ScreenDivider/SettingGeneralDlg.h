@@ -22,4 +22,5 @@ private:
 	unsigned int m_uiResizeForm;
 public:
 	BOOL m_bStartAuto;
+	virtual BOOL OnInitDialog();
 };

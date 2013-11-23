@@ -3,7 +3,7 @@
 
 // CSettingDlg 대화 상자입니다.
 
-class CSettingDlg : public CDialogEx
+class CSettingDlg : public CFlatDialogEx
 {
 	DECLARE_DYNAMIC(CSettingDlg)
 

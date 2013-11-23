@@ -71,3 +71,16 @@ void CSettingStyleDlg::OnBnClickedStyleBlue()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
+
+
+BOOL CSettingStyleDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	// For flat design, set background to white
+	SetBackgroundColor(RGB(255, 255, 255));
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}

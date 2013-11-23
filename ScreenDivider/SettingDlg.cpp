@@ -11,10 +11,10 @@
 
 // CSettingDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CSettingDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CSettingDlg, CFlatDialogEx)
 
 CSettingDlg::CSettingDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CSettingDlg::IDD, pParent)
+	: CFlatDialogEx(CSettingDlg::IDD, pParent)
 {
 }
 
@@ -24,12 +24,12 @@ CSettingDlg::~CSettingDlg()
 
 void CSettingDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CFlatDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_SETTINGS, m_List);
 }
 
 
-BEGIN_MESSAGE_MAP(CSettingDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CSettingDlg, CFlatDialogEx)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_SETTINGS, &CSettingDlg::OnLvnItemchangedListSettings)
 END_MESSAGE_MAP()
 
@@ -37,7 +37,7 @@ END_MESSAGE_MAP()
 // CSettingDlg 메시지 처리기입니다.
 BOOL CSettingDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+	CFlatDialogEx::OnInitDialog();
 
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	m_List.InsertItem(0, L"General");

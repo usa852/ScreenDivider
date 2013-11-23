@@ -4,7 +4,7 @@
 
 // CFinderDlg 대화 상자입니다.
 
-class CFinderDlg : public CDialogEx
+class CFinderDlg : public CFlatDialogEx
 {
 	DECLARE_DYNAMIC(CFinderDlg)
 
