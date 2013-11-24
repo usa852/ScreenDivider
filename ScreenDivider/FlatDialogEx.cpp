@@ -254,6 +254,15 @@ void CFlatDialogEx::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS* lpncsp
 	lpncsp->rgrc[0].top -= GetSystemMetrics(SM_CYFIXEDFRAME) + GetSystemMetrics(SM_CYCAPTION);
 	lpncsp->rgrc[0].right += GetSystemMetrics(SM_CXFIXEDFRAME);
 	lpncsp->rgrc[0].bottom += GetSystemMetrics(SM_CYFIXEDFRAME);
+
+	MoveWindow
+	(
+		lpncsp->rgrc[0].left, lpncsp->rgrc[0].top,
+		lpncsp->rgrc[0].right - lpncsp->rgrc[0].left - 
+			(GetSystemMetrics(SM_CXFIXEDFRAME) * 2),
+		lpncsp->rgrc[0].bottom - lpncsp->rgrc[0].top -
+			(GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION))
+	);
 }
 
 void CFlatDialogEx::OnLButtonDown(UINT nFlags, CPoint point)

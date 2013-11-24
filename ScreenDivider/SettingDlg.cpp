@@ -45,12 +45,12 @@ BOOL CSettingDlg::OnInitDialog()
 
 	m_pDlgGeneral = new CSettingGeneralDlg();
 	m_pDlgGeneral->Create(IDD_SETTING_GENERAL_DIALOG, (CWnd *)this);
-	m_pDlgGeneral->MoveWindow(135, 15, 369, 283);
+	m_pDlgGeneral->MoveWindow(135, 29, 279, 195);
 	m_pDlgGeneral->ShowWindow(SW_SHOW);
 
 	m_pDlgStyle = new CSettingStyleDlg();
 	m_pDlgStyle->Create(IDD_SETTING_STYLE_DIALOG, (CWnd *)this);
-	m_pDlgStyle->MoveWindow(135, 15, 369, 283);
+	m_pDlgStyle->MoveWindow(135, 29, 279, 195);
 	m_pDlgStyle->ShowWindow(SW_HIDE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -63,15 +63,14 @@ void CSettingDlg::OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult)
 	// TODO: Add your control notification handler code here
 	UpdateData(TRUE);
 
-	m_pDlgGeneral->ShowWindow(SW_HIDE);
-	m_pDlgStyle->ShowWindow(SW_HIDE);
-
 	switch (m_List.GetHotItem())
 	{
 	case 0:
 		m_pDlgGeneral->ShowWindow(SW_SHOW);
+		m_pDlgStyle->ShowWindow(SW_HIDE);
 		break;
 	case 1:
+		m_pDlgGeneral->ShowWindow(SW_HIDE);
 		m_pDlgStyle->ShowWindow(SW_SHOW);
 		break;
 	}

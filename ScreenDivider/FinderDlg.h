@@ -26,4 +26,5 @@ public:
 	int m_X;
 	int m_WIDTH;
 	int m_HEIGHT;
+	virtual BOOL OnInitDialog();
 };

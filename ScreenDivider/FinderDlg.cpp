@@ -14,7 +14,6 @@ IMPLEMENT_DYNAMIC(CFinderDlg, CFlatDialogEx)
 CFinderDlg::CFinderDlg(CWnd* pParent /*=NULL*/)
 	: CFlatDialogEx(CFinderDlg::IDD, pParent)
 {
-	m_btnFinder.LoadBitmaps(IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER);
 	m_Y = 0;
 	m_X = 0;
 	m_WIDTH = 0;
@@ -66,4 +65,16 @@ BOOL CFinderDlg::PreTranslateMessage(MSG* pMsg)
 	}
 
 	return CFlatDialogEx::PreTranslateMessage(pMsg);
+}
+
+BOOL CFinderDlg::OnInitDialog()
+{
+	CFlatDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	m_btnFinder.LoadBitmaps(IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER);
+	m_btnFinder.SizeToContent();
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
 }
