@@ -44,19 +44,6 @@ BOOL CFlatDialogEx::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// Change window's styles
-	ModifyStyle(WS_CAPTION, 0);
-	ModifyStyleEx(WS_EX_DLGMODALFRAME, 0);
-	ModifyStyleEx(WS_EX_WINDOWEDGE, 0);
-
-	// Repose the window
-	SetWindowPos
-	(
-		NULL,
-		0, 0, 0, 0,
-		SWP_NOMOVE | SWP_NOZORDER | SWP_NOSIZE | SWP_FRAMECHANGED
-	);
-
 	/* Create system buttons */
 	// Get dialog's rect to repose the buttons
 	CRect rectDialog;
@@ -158,6 +145,7 @@ BEGIN_MESSAGE_MAP(CFlatDialogEx, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_NCCALCSIZE()
 END_MESSAGE_MAP()
 
 void CFlatDialogEx::OnPaint()
@@ -256,6 +244,16 @@ void CFlatDialogEx::OnSize(UINT nType, int cx, int cy)
 						rectBtnExit.Height()
 					);
 	}
+}
+
+void CFlatDialogEx::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS* lpncsp)
+{
+	CDialogEx::OnNcCalcSize(bCalcValidRects, lpncsp);
+
+	lpncsp->rgrc[0].left -= GetSystemMetrics(SM_CXFIXEDFRAME);
+	lpncsp->rgrc[0].top -= GetSystemMetrics(SM_CYFIXEDFRAME) + GetSystemMetrics(SM_CYCAPTION);
+	lpncsp->rgrc[0].right += GetSystemMetrics(SM_CXFIXEDFRAME);
+	lpncsp->rgrc[0].bottom += GetSystemMetrics(SM_CYFIXEDFRAME);
 }
 
 void CFlatDialogEx::OnLButtonDown(UINT nFlags, CPoint point)
