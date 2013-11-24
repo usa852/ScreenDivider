@@ -8,7 +8,6 @@
 
 
 
-
 // CEditorDlg 대화 상자입니다.
 
 IMPLEMENT_DYNAMIC(CEditorDlg, CDialogEx)
@@ -98,6 +97,11 @@ BOOL CEditorDlg::OnInitDialog()
 
 	// Resize to screen
 	MoveWindow(rectScreen);
+
+	// Show tool dialog
+	m_pDlgEditorTool = new CEditorToolDlg();
+	m_pDlgEditorTool->Create(IDD_EDITOR_TOOL_DIALOG, (CWnd *)this);
+	m_pDlgEditorTool->ShowWindow(SW_SHOW);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
