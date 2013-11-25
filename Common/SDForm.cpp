@@ -142,12 +142,15 @@ VOID CSDForm::RemoveSDWindow(POSITION pos)
 
 CSDWindow *CSDForm::GetSDWindow(const CPoint& cursor)
 {
-	// Set current position to head
-	CSDWindow &curSDWindow = m_lstSDWindow.GetHead();
-
 	// Loop all sdwindow
-	while (curSDWindow != m_lstSDWindow.GetTail())
+	int i;
+	for (i=0 ; i<m_lstSDWindow.GetCount() ; i++)
 	{
+		POSITION pos;
+		pos = m_lstSDWindow.FindIndex(i);
+
+		CSDWindow curSDWindow;
+		curSDWindow = m_lstSDWindow.GetAt(pos);
 		if (curSDWindow.IsCursorInTitlebar(cursor))
 		{
 			return &curSDWindow;
