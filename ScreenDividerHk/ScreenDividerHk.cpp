@@ -18,6 +18,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 ULARGE_INTEGER g_timeLastRefresh = {0, };
 HHOOK g_hHook;
 BOOL isInTitleBar;
+CSDForm g_sdForm;
 
 // Extern functions
 extern "C"
@@ -160,6 +161,12 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 			{
 				// Reload data
 				OutputDebugString(L"Reload sdForm file\n");
+
+				// Load sdForm data from file
+				g_sdForm.LoadFromFile(g_strSDFormPath);
+
+				// Sync refresh time with modifed time
+				g_timeLastRefresh.QuadPart = g_timeLastModified.QuadPart;
 			}
 			break;
 		}
