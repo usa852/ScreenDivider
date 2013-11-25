@@ -148,15 +148,6 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
-			TCHAR strRet[MAX_PATH] = {0, };
-
-			wsprintf(strRet, L"%s %d %d\n",
-							g_strSDFormPath,
-							g_timeLastModified.QuadPart,
-							g_timeLastRefresh.QuadPart
-				);
-			OutputDebugString(strRet);
-
 			if (g_timeLastRefresh.QuadPart < g_timeLastModified.QuadPart)
 			{
 				// Reload data
@@ -167,6 +158,29 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 				// Sync refresh time with modifed time
 				g_timeLastRefresh.QuadPart = g_timeLastModified.QuadPart;
+			}
+
+			// Check the cursor come in the title bar
+			CSDWindow sdWindow;
+			sdWindow = g_sdForm.GetSDWindow(point);
+			if (sdWindow.IsRectNull())
+			{
+				isInTitleBar = FALSE;
+			}
+			else
+			{
+				if (!isInTitleBar)
+				{
+					isInTitleBar = TRUE;
+
+					{
+						CString strRet;
+						strRet.Format(L"Onto sdWindow: (%d-%d)x(%d-%d)\n",
+										sdWindow.right, sdWindow.left,
+										sdWindow.bottom, sdWindow.top);
+						OutputDebugString(strRet);
+					}
+				}
 			}
 			break;
 		}
