@@ -167,3 +167,17 @@ CSDWindow *CSDForm::GetSDWindow(POSITION pos)
 
 	return &curSDWindow;
 }
+
+CSDWindow *CSDForm::GetSDWindow(int idx)
+{
+	if (m_lstSDWindow.GetCount() <= idx)
+	{
+		return NULL;
+	}
+
+	// Set current position to head
+	POSITION pos = m_lstSDWindow.FindIndex(idx);
+	CSDWindow curSDWindow = m_lstSDWindow.GetAt(pos);
+
+	return &curSDWindow;
+}

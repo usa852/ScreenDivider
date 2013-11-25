@@ -25,4 +25,5 @@ public:
 	POSITION AddSDWindow(POINT point, SIZE size);
 	CSDWindow *GetSDWindow(const CPoint& cursor);
 	CSDWindow *GetSDWindow(POSITION pos);
+	CSDWindow *GetSDWindow(int idx);
 };
