@@ -23,7 +23,7 @@ public:
 	POSITION AddSDWindow(int l, int t, int r, int b);
 	POSITION AddSDWindow(POINT topLeft, POINT bottomRight);
 	POSITION AddSDWindow(POINT point, SIZE size);
-	CSDWindow *GetSDWindow(const CPoint& cursor);
-	CSDWindow *GetSDWindow(POSITION pos);
-	CSDWindow *GetSDWindow(int idx);
+	CSDWindow GetSDWindow(const CPoint& cursor);
+	CSDWindow GetSDWindow(POSITION pos);
+	CSDWindow GetSDWindow(int idx);
 };

@@ -140,8 +140,10 @@ VOID CSDForm::RemoveSDWindow(POSITION pos)
 	m_lstSDWindow.RemoveAt(pos);
 }
 
-CSDWindow *CSDForm::GetSDWindow(const CPoint& cursor)
+CSDWindow CSDForm::GetSDWindow(const CPoint& cursor)
 {
+	CSDWindow curSDWindow;
+
 	// Loop all sdwindow
 	int i;
 	for (i=0 ; i<m_lstSDWindow.GetCount() ; i++)
@@ -153,34 +155,38 @@ CSDWindow *CSDForm::GetSDWindow(const CPoint& cursor)
 		curSDWindow = m_lstSDWindow.GetAt(pos);
 		if (curSDWindow.IsCursorInTitlebar(cursor))
 		{
-			return &curSDWindow;
+			return curSDWindow;
 		}
 	}
 
-	return NULL;
+	return curSDWindow;
 }
 
-CSDWindow *CSDForm::GetSDWindow(POSITION pos)
+CSDWindow CSDForm::GetSDWindow(POSITION pos)
 {
+	CSDWindow curSDWindow;
+
 	// Check valid pos
 	ASSERT(m_lstSDWindow.GetAt(pos));
 
 	// Get sdwindow from pos
-	CSDWindow &curSDWindow = m_lstSDWindow.GetAt(pos);
+	curSDWindow = m_lstSDWindow.GetAt(pos);
 
-	return &curSDWindow;
+	return curSDWindow;
 }
 
-CSDWindow *CSDForm::GetSDWindow(int idx)
+CSDWindow CSDForm::GetSDWindow(int idx)
 {
+	CSDWindow curSDWindow;
+
 	if (m_lstSDWindow.GetCount() <= idx)
 	{
-		return NULL;
+		return curSDWindow;
 	}
 
 	// Set current position to head
 	POSITION pos = m_lstSDWindow.FindIndex(idx);
-	CSDWindow curSDWindow = m_lstSDWindow.GetAt(pos);
+	curSDWindow = m_lstSDWindow.GetAt(pos);
 
-	return &curSDWindow;
+	return curSDWindow;
 }
