@@ -19,6 +19,9 @@ ULARGE_INTEGER g_timeLastRefresh = {0, };
 HHOOK g_hHook;
 BOOL isInTitleBar;
 CSDForm g_sdForm;
+CSDWindow g_curSDWindow;
+CRect g_orgWindowRect;
+BOOL g_isResized = FALSE;
 
 // Extern functions
 extern "C"
@@ -134,6 +137,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 		switch (pCwpParam->message)
 		{
 		case WM_MOVING:
+		{
 			POINT point = {0, 0};
 			BOOL ret = 0;
 
@@ -160,10 +164,44 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				g_timeLastRefresh.QuadPart = g_timeLastModified.QuadPart;
 			}
 
+			// Restore if target window resized
+			if (g_isResized)
+			{
+				// Backup original window rect
+				//SendMessage(pCwpParam->hwnd, WM_EXITSIZEMOVE, 0, 0);
+
+				MoveWindow
+				(
+					pCwpParam->hwnd,
+					point.x - (g_orgWindowRect.right - g_orgWindowRect.left) / 2,
+					point.x + (g_orgWindowRect.right - g_orgWindowRect.left) / 2,
+					g_orgWindowRect.right - g_orgWindowRect.left,
+					g_orgWindowRect.bottom - g_orgWindowRect.top,
+					TRUE
+				);
+
+				SendMessage(pCwpParam->hwnd, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+				SendMessage(pCwpParam->hwnd, WM_ENTERSIZEMOVE, 0, 0);
+				g_isResized = FALSE;
+
+				/*
+				WINDOWPOS p;
+				p.hwnd = pCwpParam->hwnd;
+				p.hwndInsertAfter = 0;
+				p.x = 0;
+				p.y = 0;
+				p.cx = g_orgWindowRect.right - g_orgWindowRect.left;
+				p.cy = g_orgWindowRect.bottom - g_orgWindowRect.top;
+
+				//SendMessage(pCwpParam->hwnd, WM_WINDOWPOSCHANGING, 0, (LPARAM)&p);
+				DefWindowProc(pCwpParam->hwnd, WM_WINDOWPOSCHANGED, 0, (LPARAM)&p);
+				*/
+				break;
+			}
+
 			// Check the cursor come in the title bar
-			CSDWindow sdWindow;
-			sdWindow = g_sdForm.GetSDWindow(point);
-			if (sdWindow.IsRectNull())
+			g_curSDWindow = g_sdForm.GetSDWindow(point);
+			if (g_curSDWindow.IsRectNull())
 			{
 				isInTitleBar = FALSE;
 			}
@@ -176,11 +214,68 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 					{
 						CString strRet;
 						strRet.Format(L"Onto sdWindow: (%d-%d)x(%d-%d)\n",
-										sdWindow.right, sdWindow.left,
-										sdWindow.bottom, sdWindow.top);
+										g_curSDWindow.right, g_curSDWindow.left,
+										g_curSDWindow.bottom, g_curSDWindow.top);
 						OutputDebugString(strRet);
 					}
 				}
+			}
+			}
+			break;
+
+			case WM_ENTERSIZEMOVE:
+			{
+			}
+			break;
+
+			case WM_NCCALCSIZE:
+			{
+				if (pCwpParam->wParam)
+				{
+					NCCALCSIZE_PARAMS *p;
+					p = (NCCALCSIZE_PARAMS *)pCwpParam->lParam;
+
+					CString strRet;
+					strRet.Format(L"%d %d %d %d : %d %d %d %d : %d %d %d %d\n",
+						p->rgrc[0].left, p->rgrc[0].top, p->rgrc[0].right, p->rgrc[0].bottom,
+						p->rgrc[1].left, p->rgrc[1].top, p->rgrc[1].right, p->rgrc[1].bottom,
+						p->rgrc[2].left, p->rgrc[2].top, p->rgrc[2].right, p->rgrc[2].bottom);
+					OutputDebugString(strRet);
+				}
+				else
+				{
+					
+				}
+			}
+			break;
+
+			case WM_EXITSIZEMOVE:
+			{
+			if (isInTitleBar)
+			{
+				OutputDebugString(L"Moving exited\n");
+				
+				// Backup original WindowRect
+				GetWindowRect(pCwpParam->hwnd, &g_orgWindowRect);
+
+				// Resize target window to fit sdWindow
+				MoveWindow
+				(
+					pCwpParam->hwnd,
+					g_curSDWindow.left,
+					g_curSDWindow.top,
+					g_curSDWindow.right - g_curSDWindow.left,
+					g_curSDWindow.bottom - g_curSDWindow.top,
+					TRUE
+				);
+
+				g_isResized = TRUE;
+				isInTitleBar = FALSE;
+			}
+			else
+			{
+				g_isResized = FALSE;
+			}
 			}
 			break;
 		}
