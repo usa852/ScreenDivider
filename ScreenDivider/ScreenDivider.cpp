@@ -124,7 +124,7 @@ BOOL CScreenDividerApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CScreenDividerDlg dlgEditor;
+	CSettingDlg dlgEditor;
 	m_pMainWnd = &dlgEditor;
 	INT_PTR nResponse = dlgEditor.DoModal();
 	if (nResponse == IDOK)

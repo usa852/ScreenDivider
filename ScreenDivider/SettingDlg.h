@@ -27,4 +27,10 @@ private:
 	CListCtrl m_List;
 public:
 	afx_msg void OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult);
+	virtual void Serialize(CArchive& ar);
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedClose();
+	afx_msg void OnBnClickedDefault();
+	afx_msg void OnBnClickedSave();
 };
