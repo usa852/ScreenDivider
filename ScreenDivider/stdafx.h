@@ -39,8 +39,11 @@
 
 
 // Common headers
-#include "common.h"
+#include "../Common/common.h"
 
+// User defined controls
+#include "BitmapButtonEx.h"
+#include "FlatDialogEx.h"
 
 
 
