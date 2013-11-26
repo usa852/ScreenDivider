@@ -7,6 +7,7 @@
 #include "ScreenDividerDlg.h"
 #include "AeroDlg.h"
 #include "EditorDlg.h"
+#include "EditorToolDlg.h"
 #include "FinderDlg.h"
 #include "SettingDlg.h"
 #include "SettingGeneralDlg.h"
@@ -72,7 +73,7 @@ CScreenDividerApp::CScreenDividerApp()
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
-	//InstallHook();
+	InstallHook();
 }
 
 
@@ -97,6 +98,18 @@ BOOL CScreenDividerApp::InitInstance()
 
 	CWinApp::InitInstance();
 
+	/*
+	CSDForm a;
+	a.AddSDWindow(0, 200, 300, 400);
+	a.AddSDWindow(0, 400, 300, 600);
+	a.AddSDWindow(0, 600, 300, 800);
+	a.AddSDWindow(0, 800, 300, 1000);
+	a.AddSDWindow(0, 1000, 300, 1200);
+	a.SaveToFile(L"D:\\sdForm.sdForm");
+	*/
+
+	CWnd *pA;
+	
 
 	// Create the shell manager, in case the dialog contains
 	// any shell tree view or shell list view controls.
@@ -111,9 +124,9 @@ BOOL CScreenDividerApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CFinderDlg dlgFinder;
-	m_pMainWnd = &dlgFinder;
-	INT_PTR nResponse = dlgFinder.DoModal();
+	CScreenDividerDlg dlgEditor;
+	m_pMainWnd = &dlgEditor;
+	INT_PTR nResponse = dlgEditor.DoModal();
 	if (nResponse == IDOK)
 	{
 		// TODO: Place code here to handle when the dialog is

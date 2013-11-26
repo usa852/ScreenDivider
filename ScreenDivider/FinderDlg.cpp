@@ -9,12 +9,11 @@
 
 // CFinderDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CFinderDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CFinderDlg, CFlatDialogEx)
 
 CFinderDlg::CFinderDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CFinderDlg::IDD, pParent)
+	: CFlatDialogEx(CFinderDlg::IDD, pParent)
 {
-	m_btnFinder.LoadBitmaps(IDB_FINDER, IDB_FINDER, IDB_FINDER, IDB_FINDER);
 	m_Y = 0;
 	m_X = 0;
 	m_WIDTH = 0;
@@ -27,7 +26,7 @@ CFinderDlg::~CFinderDlg()
 
 void CFinderDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+	CFlatDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_FINDER, m_btnFinder);
 	DDX_Text(pDX, IDC_STATIC_Y, m_Y);
 	DDX_Text(pDX, IDC_STATIC_X, m_X);
@@ -36,8 +35,7 @@ void CFinderDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CFinderDlg, CDialogEx)
-	ON_WM_LBUTTONDOWN()
+BEGIN_MESSAGE_MAP(CFinderDlg, CFlatDialogEx)
 END_MESSAGE_MAP()
 
 
@@ -56,7 +54,7 @@ BOOL CFinderDlg::PreTranslateMessage(MSG* pMsg)
 		switch (pMsg->message)
 		{
 		case WM_LBUTTONDOWN:
-			SetCursor(LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_FINDER)));
+			SetCursor(LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_CURSOR_FINDER)));
 			SetCapture();
 			break;
 		case WM_MOUSEMOVE:
@@ -66,5 +64,17 @@ BOOL CFinderDlg::PreTranslateMessage(MSG* pMsg)
 		}
 	}
 
-	return CDialogEx::PreTranslateMessage(pMsg);
+	return CFlatDialogEx::PreTranslateMessage(pMsg);
+}
+
+BOOL CFinderDlg::OnInitDialog()
+{
+	CFlatDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	m_btnFinder.LoadBitmaps(IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER);
+	m_btnFinder.SizeToContent();
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
 }

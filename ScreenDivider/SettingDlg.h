@@ -3,7 +3,7 @@
 
 // CSettingDlg 대화 상자입니다.
 
-class CSettingDlg : public CDialogEx
+class CSettingDlg : public CFlatDialogEx
 {
 	DECLARE_DYNAMIC(CSettingDlg)
 
@@ -18,4 +18,13 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
+
+private:
+	CDialogEx *m_pDlgStyle;
+	CDialogEx *m_pDlgGeneral;
+	CListCtrl m_List;
+public:
+	afx_msg void OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult);
 };
