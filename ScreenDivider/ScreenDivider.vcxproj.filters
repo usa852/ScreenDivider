@@ -22,6 +22,51 @@
     <None Include="res\ScreenDivider.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\EXIT.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_OVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\EXIT_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MAX_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN_DISABLED.BMP">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MIN_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FINDER.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FINDER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScreenDivider.h">
@@ -39,10 +84,40 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
+    <ClInclude Include="AeroDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AeroDlg.h">
+    <ClInclude Include="EditorDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FinderDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingGeneralDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingStyleDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\SDForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\SDWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapButtonEx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlatDialogEx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorToolDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,10 +131,40 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="common.cpp">
+    <ClCompile Include="AeroDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AeroDlg.cpp">
+    <ClCompile Include="EditorDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FinderDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingGeneralDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingStyleDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\SDForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\SDWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapButtonEx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlatDialogEx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorToolDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

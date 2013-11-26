@@ -31,6 +31,7 @@ void CScreenDividerDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CScreenDividerDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CScreenDividerDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -86,3 +87,48 @@ HCURSOR CScreenDividerDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+// Refresh dll's data
+typedef BOOL (*PFN_REFRESHSDFORM)(TCHAR strSDFormPath[MAX_PATH]);
+BOOL RefreshSDForm(TCHAR strSDFormPath[MAX_PATH])
+{
+	BOOL isSuccess = TRUE;
+
+	// Load library to get address of procedure('RefreshSDForm()')
+	HMODULE hModule;
+#ifdef _X64
+	hModule = LoadLibrary(L"ScreenDividerHk64.dll");
+#else
+	hModule = LoadLibrary(L"ScreenDividerHk32.dll");
+#endif
+	if (hModule == NULL)
+	{
+		isSuccess = FALSE;
+		goto EXIT;
+	}
+
+	// Get address of 'RefreshSDForm()'
+	PFN_REFRESHSDFORM RefreshSDForm = NULL;
+	RefreshSDForm = (PFN_REFRESHSDFORM)GetProcAddress(hModule, "RefreshSDForm");
+	if (RefreshSDForm == NULL)
+	{
+		isSuccess = FALSE;
+		goto EXIT;
+	}
+
+	// Call RefreshSDForm() got top
+	RefreshSDForm(strSDFormPath);
+
+EXIT:
+	if (hModule != NULL)
+	{
+		FreeLibrary(hModule);
+	}
+
+	return isSuccess;
+}
+
+void CScreenDividerDlg::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+	RefreshSDForm(L"D:\\sdForm.sdForm");
+}
