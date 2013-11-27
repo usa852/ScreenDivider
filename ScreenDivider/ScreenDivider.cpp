@@ -152,9 +152,9 @@ BOOL CScreenDividerApp::InitInstance()
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
-	CEditorDlg dlgEditor;
-	m_pMainWnd = &dlgEditor;
-	INT_PTR nResponse = dlgEditor.DoModal();
+	CScreenDividerDlg dlg;
+	m_pMainWnd = &dlg;
+	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
 	{
 		// TODO: Place code here to handle when the dialog is
