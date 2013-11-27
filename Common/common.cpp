@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include "../ScreenDivider/stdafx.h"
+#include "../ScreenDividerHk/stdafx.h"
 #include "common.h"
 
 BOOL SetTransparentWindow(HWND hWnd, BYTE bAlpha)

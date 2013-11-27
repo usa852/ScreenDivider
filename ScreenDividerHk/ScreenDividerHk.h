@@ -9,6 +9,11 @@
 
 #include "resource.h"		// main symbols
 
+#pragma data_seg(".SHARE")
+	TCHAR g_strSDFormPath[MAX_PATH] = L"";
+	ULARGE_INTEGER g_timeLastModified = {0, };
+#pragma data_seg()
+#pragma comment(linker, "/SECTION:.SHARE,RWS")
 
 // CScreenDividerHkApp
 // See ScreenDividerHk.cpp for the implementation of this class
