@@ -19,6 +19,7 @@ ULARGE_INTEGER g_timeLastRefresh = {0, };
 HHOOK g_hHook;
 BOOL isInTitleBar;
 CSDForm g_sdForm;
+CSDWindow g_curSDWindow;
 
 // Extern functions
 extern "C"
@@ -134,6 +135,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 		switch (pCwpParam->message)
 		{
 		case WM_MOVING:
+		{
 			POINT point = {0, 0};
 			BOOL ret = 0;
 
@@ -148,15 +150,6 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
-			TCHAR strRet[MAX_PATH] = {0, };
-
-			wsprintf(strRet, L"%s %d %d\n",
-							g_strSDFormPath,
-							g_timeLastModified.QuadPart,
-							g_timeLastRefresh.QuadPart
-				);
-			OutputDebugString(strRet);
-
 			if (g_timeLastRefresh.QuadPart < g_timeLastModified.QuadPart)
 			{
 				// Reload data
@@ -167,6 +160,57 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 				// Sync refresh time with modifed time
 				g_timeLastRefresh.QuadPart = g_timeLastModified.QuadPart;
+			}
+
+			// Check the cursor come in the title bar
+			g_curSDWindow = g_sdForm.GetSDWindow(point);
+			if (g_curSDWindow.IsRectNull())
+			{
+				isInTitleBar = FALSE;
+			}
+			else
+			{
+				if (!isInTitleBar)
+				{
+					isInTitleBar = TRUE;
+
+					{
+						CString strRet;
+						strRet.Format(L"Onto sdWindow: (%d-%d)x(%d-%d)\n",
+										g_curSDWindow.right, g_curSDWindow.left,
+										g_curSDWindow.bottom, g_curSDWindow.top);
+						OutputDebugString(strRet);
+					}
+				}
+			}
+			}
+			break;
+
+			case WM_EXITSIZEMOVE:
+			{
+			if (isInTitleBar)
+			{
+				OutputDebugString(L"Moving exited\n");
+
+				// Resize target window to fit sdWindow
+				MoveWindow
+				(
+					pCwpParam->hwnd,
+					g_curSDWindow.left,
+					g_curSDWindow.top,
+					g_curSDWindow.right - g_curSDWindow.left,
+					g_curSDWindow.bottom - g_curSDWindow.top,
+					TRUE
+				);
+
+				// Modify style like maximized
+				LONG style;
+				style = GetWindowLongPtr(pCwpParam->hwnd, GWL_STYLE);
+				style |= WS_MAXIMIZE;
+				SetWindowLongPtr(pCwpParam->hwnd, GWL_STYLE, style);
+
+				isInTitleBar = FALSE;
+			}
 			}
 			break;
 		}
