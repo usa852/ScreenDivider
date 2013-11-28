@@ -24,6 +24,7 @@ private:
 	CPoint m_start,m_end;
 	bool m_isDown;
 	CSDForm form;
+	CDialogEx *m_pChildWindow;
 
 	DECLARE_MESSAGE_MAP()
 public:

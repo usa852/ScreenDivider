@@ -120,6 +120,9 @@
     <ClInclude Include="EditorToolDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorWindowDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ScreenDivider.cpp">
@@ -165,6 +168,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorToolDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
