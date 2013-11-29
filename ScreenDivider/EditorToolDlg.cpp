@@ -29,11 +29,11 @@ void CEditorToolDlg::DoDataExchange(CDataExchange* pDX)
 // CEditorToolDlg message handlersBEGIN_MESSAGE_MAP(CEditorToolDlg, CFlatDialogEx)
 BEGIN_MESSAGE_MAP(CEditorToolDlg, CFlatDialogEx)
 	ON_WM_MOVE()
-	ON_BN_CLICKED(IDC_BUTTON1, &CEditorToolDlg::Button_New)
-	ON_BN_CLICKED(IDC_BUTTON2, &CEditorToolDlg::Button_Open)
-	ON_BN_CLICKED(IDC_BUTTON3, &CEditorToolDlg::Button_Save)
-	ON_BN_CLICKED(IDC_BUTTON4, &CEditorToolDlg::Button_Save_As)
-	ON_BN_CLICKED(IDC_BUTTON7, &CEditorToolDlg::Button_End)
+	ON_BN_CLICKED(IDC_BUTTON_NEW, &CEditorToolDlg::OnBnClickedButtonNew)
+	ON_BN_CLICKED(IDC_BUTTON_OPEN, &CEditorToolDlg::OnBnClickedButtonOpen)
+	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CEditorToolDlg::OnBnClickedButtonSave)
+	ON_BN_CLICKED(IDC_BUTTON_SAVEAS, &CEditorToolDlg::OnBnClickedButtonSaveas)
+	ON_BN_CLICKED(IDC_BUTTON_END, &CEditorToolDlg::OnBnClickedButtonEnd)
 END_MESSAGE_MAP()
 
 
@@ -46,15 +46,15 @@ void CEditorToolDlg::OnMove(int x, int y)
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 }
 
-
-void CEditorToolDlg::Button_New()
+void CEditorToolDlg::OnBnClickedButtonNew()
 {
+	// TODO: Add your control notification handler code here
 	int ret;
 	ret = AfxMessageBox(L"Do you want to save changes?",MB_YESNOCANCEL);
 
 	switch (ret)
 	{
-	case IDYES:Button_Save();
+	case IDYES:OnBnClickedButtonSave();
 		break;
 	case IDNO:
 		// Init sdForm
@@ -64,9 +64,9 @@ void CEditorToolDlg::Button_New()
 	}
 }
 
-
-void CEditorToolDlg::Button_Open()
+void CEditorToolDlg::OnBnClickedButtonOpen()
 {
+	// TODO: Add your control notification handler code here
 	TCHAR strFilter[] = { TEXT("ScreenDivider form file (*.sdf)|*.sdf||") };
 	CFileDialog dlg(TRUE, TEXT(".sdf"), NULL, 0, strFilter);
 
@@ -87,8 +87,9 @@ void CEditorToolDlg::Button_Open()
 }
 
 
-void CEditorToolDlg::Button_Save()
+void CEditorToolDlg::OnBnClickedButtonSave()
 {
+	// TODO: Add your control notification handler code here
 	TCHAR strFilter[] = { TEXT("ScreenDivider form file (*.sdf)|*.sdf||") };
 	CFileDialog dlg(FALSE, TEXT("leeju.sdf"), NULL, 0, strFilter);
 
@@ -109,8 +110,9 @@ void CEditorToolDlg::Button_Save()
 }
 
 
-void CEditorToolDlg::Button_Save_As()
+void CEditorToolDlg::OnBnClickedButtonSaveas()
 {
+	// TODO: Add your control notification handler code here
 	TCHAR strFilter[] = { TEXT("ScreenDivider form file (*.sdf)|*.sdf||") };
 	CFileDialog dlg(FALSE, TEXT(".sdf"), NULL, 0, strFilter);
 
@@ -130,7 +132,9 @@ void CEditorToolDlg::Button_Save_As()
 	}
 }
 
-void CEditorToolDlg::Button_End()
+
+void CEditorToolDlg::OnBnClickedButtonEnd()
 {
+	// TODO: Add your control notification handler code here
 	GetParent()->SendMessage(WM_CLOSE, 0, 0);
 }
