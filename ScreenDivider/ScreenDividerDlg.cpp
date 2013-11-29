@@ -231,7 +231,14 @@ void CScreenDividerDlg::OnTraymenuEditor()
 	// TODO: Add your command handler code here
 	if (m_dlgEditor.DoModal() == IDOK)
 	{
-		// Some refresh processing
+		// Refresh sdform datas in dll
+		BOOL ret;
+		ret = RefreshSDForm((TCHAR *)(LPCTSTR)m_strSDFormPath);
+		if (!ret)
+		{
+			AfxMessageBox(L"Can't open the SDForm file\n"
+							L"Please retry later", MB_OK | MB_ICONSTOP);
+		}
 	}
 }
 
