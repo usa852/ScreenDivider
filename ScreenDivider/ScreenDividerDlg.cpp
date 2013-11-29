@@ -6,8 +6,6 @@
 #include "ScreenDivider.h"
 #include "ScreenDividerDlg.h"
 #include "afxdialogex.h"
-#include "EditorDlg.h"
-#include "SettingDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -149,19 +147,19 @@ void CScreenDividerDlg::OnTraymenuQuit()
 void CScreenDividerDlg::OnTraymenuEditor()
 {
 	// TODO: Add your command handler code here
-	CEditorDlg *pDlgEditor;
-	pDlgEditor = new CEditorDlg();
-	pDlgEditor->Create(IDD_EDITOR_DIALOG, this);
-	pDlgEditor->ShowWindow(SW_SHOW);
+	if (m_dlgEditor.DoModal() == IDOK)
+	{
+		// Some refresh processing
+	}
 }
 
 void CScreenDividerDlg::OnTraymenuSettings()
 {
 	// TODO: Add your command handler code here
-	CSettingDlg *pDlgSetting;
-	pDlgSetting = new CSettingDlg();
-	pDlgSetting->Create(IDD_SETTING_DIALOG, this);
-	pDlgSetting->ShowWindow(SW_SHOW);
+	if (m_dlgSetting.DoModal() == IDOK)
+	{
+		// Some refresh processing
+	}
 }
 
 

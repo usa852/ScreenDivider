@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include "EditorDlg.h"
+#include "SettingDlg.h"
 
 // CScreenDividerDlg dialog
 class CScreenDividerDlg : public CDialogEx
@@ -23,6 +24,9 @@ public:
 protected:
 	HICON m_hIcon;
 	NOTIFYICONDATA m_nid;
+
+	CEditorDlg m_dlgEditor;
+	CSettingDlg m_dlgSetting;
 
 protected:
 	// Generated message map functions
