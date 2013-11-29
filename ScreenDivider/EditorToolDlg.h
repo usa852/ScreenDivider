@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CEditorToolDlg dialog
@@ -27,4 +28,12 @@ public:
 	afx_msg void OnBnClickedButtonSave();
 	afx_msg void OnBnClickedButtonSaveas();
 	afx_msg void OnBnClickedButtonEnd();
+	CBitmapButtonEx m_btnNew;
+	CBitmapButtonEx m_btnOpen;
+	CBitmapButtonEx m_btnSave;
+	CBitmapButtonEx m_btnSaveas;
+	CBitmapButtonEx m_btnFinder;
+	CBitmapButtonEx m_btnTrans;
+	CBitmapButtonEx m_btnEnd;
+	virtual BOOL OnInitDialog();
 };

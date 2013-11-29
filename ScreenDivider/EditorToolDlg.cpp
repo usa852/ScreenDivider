@@ -24,6 +24,13 @@ CEditorToolDlg::~CEditorToolDlg()
 void CEditorToolDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CFlatDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON_NEW, m_btnNew);
+	DDX_Control(pDX, IDC_BUTTON_OPEN, m_btnOpen);
+	DDX_Control(pDX, IDC_BUTTON_SAVE, m_btnSave);
+	DDX_Control(pDX, IDC_BUTTON_SAVEAS, m_btnSaveas);
+	DDX_Control(pDX, IDC_BUTTON_FINDER, m_btnFinder);
+	DDX_Control(pDX, IDC_BUTTON_TRANS, m_btnTrans);
+	DDX_Control(pDX, IDC_BUTTON_END, m_btnEnd);
 }
 
 // CEditorToolDlg message handlersBEGIN_MESSAGE_MAP(CEditorToolDlg, CFlatDialogEx)
@@ -137,4 +144,81 @@ void CEditorToolDlg::OnBnClickedButtonEnd()
 {
 	// TODO: Add your control notification handler code here
 	GetParent()->SendMessage(WM_CLOSE, 0, 0);
+}
+
+
+BOOL CEditorToolDlg::OnInitDialog()
+{
+	CFlatDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	/* Set bitmap to buttons */
+	m_btnNew.LoadBitmaps
+		(
+			IDB_BITMAP_NEW,
+			IDB_BITMAP_NEW_HOVER,
+			IDB_BITMAP_NEW_SEL,
+			0U,
+			IDB_BITMAP_NEW_DISABLED
+		);
+	m_btnNew.SizeToContent();
+	m_btnOpen.LoadBitmaps
+		(
+			IDB_BITMAP_OPEN,
+			IDB_BITMAP_OPEN_HOVER,
+			IDB_BITMAP_OPEN_SEL,
+			0U,
+			IDB_BITMAP_OPEN_DISABLED
+		);
+	m_btnOpen.SizeToContent();
+	m_btnSave.LoadBitmaps
+		(
+			IDB_BITMAP_SAVE,
+			IDB_BITMAP_SAVE_HOVER,
+			IDB_BITMAP_SAVE_SEL,
+			0U,
+			IDB_BITMAP_SAVE_DISABLED
+		);
+	m_btnSave.SizeToContent();
+	m_btnSaveas.LoadBitmaps
+		(
+			IDB_BITMAP_SAVEAS,
+			IDB_BITMAP_SAVEAS_HOVER,
+			IDB_BITMAP_SAVEAS_SEL,
+			0U,
+			IDB_BITMAP_SAVEAS_DISABLED
+		);
+	m_btnSaveas.SizeToContent();
+
+	m_btnFinder.LoadBitmaps
+		(
+			IDB_BITMAP_FINDER,
+			IDB_BITMAP_FINDER_HOVER,
+			IDB_BITMAP_FINDER_SEL,
+			0U,
+			IDB_BITMAP_FINDER_DISABLED
+		);
+	m_btnFinder.SizeToContent();
+	m_btnTrans.LoadBitmaps
+		(
+			IDB_BITMAP_TRANS,
+			IDB_BITMAP_TRANS_HOVER,
+			IDB_BITMAP_TRANS_SEL,
+			0U,
+			IDB_BITMAP_TRANS_DISABLED
+		);
+	m_btnTrans.SizeToContent();
+
+	m_btnEnd.LoadBitmaps
+		(
+			IDB_BITMAP_END,
+			IDB_BITMAP_END_HOVER,
+			IDB_BITMAP_END_SEL,
+			0U,
+			IDB_BITMAP_END_DISABLED
+		);
+	m_btnEnd.SizeToContent();
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
 }

@@ -178,11 +178,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="res\END.bmp" />
+    <None Include="res\END_DISABLED.bmp" />
+    <None Include="res\END_HOVER.bmp" />
+    <None Include="res\END_SEL.bmp" />
     <None Include="res\EXIT.bmp" />
     <None Include="res\EXIT_DISABLED.bmp" />
     <None Include="res\EXIT_HOVER.bmp" />
     <None Include="res\EXIT_OVER.bmp" />
     <None Include="res\EXIT_SEL.bmp" />
+    <None Include="res\FINDER_DISABLED.bmp" />
+    <None Include="res\FINDER_HOVER.bmp" />
+    <None Include="res\FINDER_ICON.bmp" />
+    <None Include="res\FINDER_SEL.bmp" />
     <None Include="res\MAX.bmp" />
     <None Include="res\MAX_DISABLED.bmp" />
     <None Include="res\MAX_HOVER.bmp" />
@@ -193,8 +201,28 @@
     <None Include="res\MIN_SEL.bmp" />
     <None Include="res\FINDER.bmp" />
     <None Include="res\FINDER.cur" />
+    <None Include="res\NEW.bmp" />
+    <None Include="res\NEW_DISABLED.bmp" />
+    <None Include="res\NEW_HOVER.bmp" />
+    <None Include="res\NEW_SEL.bmp" />
+    <None Include="res\OPEN.bmp" />
+    <None Include="res\OPEN_DISABLED.bmp" />
+    <None Include="res\OPEN_HOVER.bmp" />
+    <None Include="res\OPEN_SEL.bmp" />
+    <None Include="res\SAVE.bmp" />
+    <None Include="res\SAVEAS.bmp" />
+    <None Include="res\SAVEAS_DISABLED.bmp" />
+    <None Include="res\SAVEAS_HOVER.bmp" />
+    <None Include="res\SAVEAS_SEL.bmp" />
+    <None Include="res\SAVE_DISABLED.bmp" />
+    <None Include="res\SAVE_HOVER.bmp" />
+    <None Include="res\SAVE_SEL.bmp" />
     <None Include="res\ScreenDivider.ico" />
     <None Include="res\ScreenDivider.rc2" />
+    <None Include="res\TRANS.bmp" />
+    <None Include="res\TRANS_DISABLED.bmp" />
+    <None Include="res\TRANS_HOVER.bmp" />
+    <None Include="res\TRANS_SEL.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\common.h" />
