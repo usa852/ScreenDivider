@@ -162,9 +162,6 @@ void CFlatDialogEx::OnPaint()
 	GetWindowRect(rect);
 	rect.MoveToXY(0, 0);
 
-	// Erase background
-	pDC->Rectangle(rect);
-
 	// Fill with transparent
 	CBrush *pOldBrush = NULL;
 	pOldBrush = (CBrush *)pDC->SelectStockObject(NULL_BRUSH);
