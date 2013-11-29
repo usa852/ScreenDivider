@@ -5,8 +5,6 @@
 #include "ScreenDivider.h"
 #include "SettingDlg.h"
 #include "afxdialogex.h"
-#include "SettingGeneralDlg.h"
-#include "SettingStyleDlg.h"
 
 
 // CSettingDlg 대화 상자입니다.
@@ -125,6 +123,80 @@ void CSettingDlg::OnBnClickedDefault()
 void CSettingDlg::OnBnClickedSave()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_pDlgGeneral->UpdateData(TRUE);
+	
+	// Open registry key
+	HKEY hKey;
+	LONG regOpen;
+	regOpen = RegCreateKeyEx
+			(
+				HKEY_CURRENT_USER,
+				L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+				0L,
+				NULL,
+				REG_OPTION_NON_VOLATILE,
+				KEY_ALL_ACCESS,
+				NULL,
+				&hKey,
+				NULL
+			);
+
+	// Add or delete key
+	if (regOpen == ERROR_SUCCESS)
+	{
+		if (m_pDlgGeneral->m_bStartAuto)
+		{
+			if (regOpen == ERROR_SUCCESS)
+			{
+				// Get app path
+				TCHAR szPath[MAX_PATH] = {0, };
+				DWORD lenPath;
+				lenPath = GetModuleFileName(AfxGetInstanceHandle(), szPath, MAX_PATH);
+
+				// Set value
+				LONG regSet;
+				regSet = RegSetValueEx
+					(
+						hKey,
+						L"ScreenDivider",
+						0,
+						REG_SZ,
+						(LPBYTE)szPath,
+						MAX_PATH	/* If terminated NULL, OS auto split data */
+					);
+
+				if (regSet != ERROR_SUCCESS)
+				{
+					AfxMessageBox
+						(
+							L"Can't register auto start program\n"
+							L"Please retry later",
+							MB_OK | MB_ICONSTOP
+						);
+				}
+			}
+		}
+		else
+		{
+			LONG regDelete;
+			regDelete = RegDeleteValue(hKey, L"ScreenDivider");
+		}
+	}
+	else
+	{
+		AfxMessageBox
+			(
+				L"Can't register auto start program\n"
+				L"Please retry later",
+				MB_OK | MB_ICONSTOP
+			);
+	}
+
+	// Close hKey
+	RegCloseKey(hKey);
+
+	m_pDlgGeneral->UpdateData(FALSE);
+
 	CFile file(_T("Setting.dat"), CFile::modeCreate | CFile::modeWrite);
 	CArchive ar(&file, CArchive::store);
 	Serialize(ar);
