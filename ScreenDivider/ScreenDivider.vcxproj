@@ -204,6 +204,7 @@
     <ClInclude Include="BitmapButtonEx.h" />
     <ClInclude Include="EditorDlg.h" />
     <ClInclude Include="EditorToolDlg.h" />
+    <ClInclude Include="EditorTransDlg.h" />
     <ClInclude Include="FinderDlg.h" />
     <ClInclude Include="FlatDialogEx.h" />
     <ClInclude Include="Resource.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="BitmapButtonEx.cpp" />
     <ClCompile Include="EditorDlg.cpp" />
     <ClCompile Include="EditorToolDlg.cpp" />
+    <ClCompile Include="EditorTransDlg.cpp" />
     <ClCompile Include="FinderDlg.cpp" />
     <ClCompile Include="FlatDialogEx.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
