@@ -14,11 +14,88 @@
 #define UID_TRAY 0
 #define TM_NOTIFICATION (WM_APP + 1)
 
+/* Export calls */
+// Hook start
+typedef BOOL (*PFN_STARTWNDPROCHOOK)();
+BOOL InstallHook()
+{
+	BOOL isSuccess = TRUE;
+
+	// Load library to get address of procedure('StartWndProcHook()')
+	HMODULE hModule;
+#ifdef _X64
+	hModule = LoadLibrary(L"ScreenDividerHk64.dll");
+#else
+	hModule = LoadLibrary(L"ScreenDividerHk32.dll");
+#endif
+	if (hModule == NULL)
+	{
+		isSuccess = FALSE;
+		goto EXIT;
+	}
+
+	// Get address of 'StartWndProcHook()'
+	PFN_STARTWNDPROCHOOK StartWndProcHook = NULL;
+	StartWndProcHook = (PFN_STARTWNDPROCHOOK)GetProcAddress(hModule, "StartWndProcHook");
+	if (StartWndProcHook == NULL)
+	{
+		isSuccess = FALSE;
+		goto EXIT;
+	}
+
+	// Call StartWndProcHook() got top
+	StartWndProcHook();
+
+EXIT:
+	if (hModule != NULL)
+	{
+		FreeLibrary(hModule);
+	}
+
+	return isSuccess;
+}
+
+// Refresh dll's data
+typedef BOOL (*PFN_REFRESHSDFORM)(TCHAR strSDFormPath[MAX_PATH]);
+BOOL RefreshSDForm(TCHAR strSDFormPath[MAX_PATH])
+{
+        BOOL isSuccess = TRUE;
+
+        // Load library to get address of procedure('RefreshSDForm()')
+        HMODULE hModule;
+#ifdef _X64
+        hModule = LoadLibrary(L"ScreenDividerHk64.dll");
+#else
+        hModule = LoadLibrary(L"ScreenDividerHk32.dll");
+#endif
+        if (hModule == NULL)
+        {
+                isSuccess = FALSE;
+                goto EXIT;
+        }
+
+        // Get address of 'RefreshSDForm()'
+        PFN_REFRESHSDFORM RefreshSDForm = NULL;
+        RefreshSDForm = (PFN_REFRESHSDFORM)GetProcAddress(hModule, "RefreshSDForm");
+        if (RefreshSDForm == NULL)
+        {
+                isSuccess = FALSE;
+                goto EXIT;
+        }
+
+        // Call RefreshSDForm() got top
+        RefreshSDForm(strSDFormPath);
+
+EXIT:
+        if (hModule != NULL)
+        {
+                FreeLibrary(hModule);
+        }
+
+        return isSuccess;
+}
+
 // CScreenDividerDlg dialog.
-
-
-
-
 CScreenDividerDlg::CScreenDividerDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CScreenDividerDlg::IDD, pParent)
 {
@@ -38,6 +115,7 @@ BEGIN_MESSAGE_MAP(CScreenDividerDlg, CDialogEx)
 	ON_COMMAND(ID_TRAYMENU_EDITOR, &CScreenDividerDlg::OnTraymenuEditor)
 	ON_COMMAND(ID_TRAYMENU_SETTINGS, &CScreenDividerDlg::OnTraymenuSettings)
 	ON_WM_WINDOWPOSCHANGING()
+	ON_COMMAND(ID_TRAYMENU_OPEN, &CScreenDividerDlg::OnTraymenuOpen)
 END_MESSAGE_MAP()
 
 
@@ -63,6 +141,10 @@ BOOL CScreenDividerDlg::OnInitDialog()
 	m_nid.hIcon = m_hIcon;
 	lstrcpy(m_nid.szTip, L"ScreenDivider");
 	Shell_NotifyIcon(NIM_ADD, &m_nid);
+
+	// Initialize some variables
+	m_strSDFormPath = L"";
+	m_isHooked = FALSE;
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -172,4 +254,37 @@ void CScreenDividerDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 	// Because of this dialog is main dialog,
 	// ShowWindow() function is not performed.
 	lpwndpos->flags &= ~SWP_SHOWWINDOW;
+}
+
+
+void CScreenDividerDlg::OnTraymenuOpen()
+{
+	// TODO: Add your command handler code here
+	CFileDialog dlgFileOpen(TRUE, NULL, NULL, 0, L"SDForm Files(*.sdf)|*.sdf||");
+	if (dlgFileOpen.DoModal() == IDOK)
+	{
+		// Load datas
+		m_strSDFormPath = dlgFileOpen.GetPathName();
+		m_sdForm.LoadFromFile((TCHAR *)(LPCTSTR)m_strSDFormPath);
+
+		// Install hook
+		if (!m_isHooked)
+		{
+			m_isHooked = InstallHook();
+			if (!m_isHooked)
+			{
+				AfxMessageBox(L"Can't open the SDForm file\n"
+							  L"Please retry later", MB_OK | MB_ICONSTOP);
+			}
+		}
+
+		// Refresh sdform datas in dll
+		BOOL ret;
+		ret = RefreshSDForm((TCHAR *)(LPCTSTR)m_strSDFormPath);
+		if (!ret)
+		{
+			AfxMessageBox(L"Can't open the SDForm file\n"
+							L"Please retry later", MB_OK | MB_ICONSTOP);
+		}
+	}
 }

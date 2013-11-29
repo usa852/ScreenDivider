@@ -27,6 +27,9 @@ protected:
 
 	CEditorDlg m_dlgEditor;
 	CSettingDlg m_dlgSetting;
+	CString m_strSDFormPath;
+	CSDForm m_sdForm;
+	BOOL m_isHooked;
 
 protected:
 	// Generated message map functions
@@ -41,4 +44,5 @@ public:
 	afx_msg void OnTraymenuEditor();
 	afx_msg void OnTraymenuSettings();
 	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
+	afx_msg void OnTraymenuOpen();
 };
