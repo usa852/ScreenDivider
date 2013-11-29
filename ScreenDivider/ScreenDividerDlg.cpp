@@ -39,6 +39,7 @@ BEGIN_MESSAGE_MAP(CScreenDividerDlg, CDialogEx)
 	ON_COMMAND(ID_TRAYMENU_QUIT, &CScreenDividerDlg::OnTraymenuQuit)
 	ON_COMMAND(ID_TRAYMENU_EDITOR, &CScreenDividerDlg::OnTraymenuEditor)
 	ON_COMMAND(ID_TRAYMENU_SETTINGS, &CScreenDividerDlg::OnTraymenuSettings)
+	ON_WM_WINDOWPOSCHANGING()
 END_MESSAGE_MAP()
 
 
@@ -161,4 +162,16 @@ void CScreenDividerDlg::OnTraymenuSettings()
 	pDlgSetting = new CSettingDlg();
 	pDlgSetting->Create(IDD_SETTING_DIALOG, this);
 	pDlgSetting->ShowWindow(SW_SHOW);
+}
+
+
+void CScreenDividerDlg::OnWindowPosChanging(WINDOWPOS* lpwndpos)
+{
+	CDialogEx::OnWindowPosChanging(lpwndpos);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	// Hide this dialog
+	// Because of this dialog is main dialog,
+	// ShowWindow() function is not performed.
+	lpwndpos->flags &= ~SWP_SHOWWINDOW;
 }

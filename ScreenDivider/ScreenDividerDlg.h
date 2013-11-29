@@ -36,4 +36,5 @@ public:
 	afx_msg void OnTraymenuQuit();
 	afx_msg void OnTraymenuEditor();
 	afx_msg void OnTraymenuSettings();
+	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 };
