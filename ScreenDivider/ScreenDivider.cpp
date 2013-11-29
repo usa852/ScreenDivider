@@ -64,46 +64,6 @@ EXIT:
 	return isSuccess;
 }
 
-// Refresh dll's data
-typedef BOOL (*PFN_REFRESHSDFORM)(TCHAR strSDFormPath[MAX_PATH]);
-BOOL RefreshSDForm(TCHAR strSDFormPath[MAX_PATH])
-{
-	BOOL isSuccess = TRUE;
-
-	// Load library to get address of procedure('RefreshSDForm()')
-	HMODULE hModule;
-#ifdef _X64
-	hModule = LoadLibrary(L"ScreenDividerHk64.dll");
-#else
-	hModule = LoadLibrary(L"ScreenDividerHk32.dll");
-#endif
-	if (hModule == NULL)
-	{
-		isSuccess = FALSE;
-		goto EXIT;
-	}
-
-	// Get address of 'RefreshSDForm()'
-	PFN_REFRESHSDFORM RefreshSDForm = NULL;
-	RefreshSDForm = (PFN_REFRESHSDFORM)GetProcAddress(hModule, "RefreshSDForm");
-	if (RefreshSDForm == NULL)
-	{
-		isSuccess = FALSE;
-		goto EXIT;
-	}
-
-	// Call RefreshSDForm() got top
-	RefreshSDForm(strSDFormPath);
-
-EXIT:
-	if (hModule != NULL)
-	{
-		FreeLibrary(hModule);
-	}
-
-	return isSuccess;
-}
-
 // CScreenDividerApp construction
 
 CScreenDividerApp::CScreenDividerApp()
@@ -138,6 +98,15 @@ BOOL CScreenDividerApp::InitInstance()
 
 	CWinApp::InitInstance();
 
+	/*
+	CSDForm a;
+	a.AddSDWindow(0, 200, 300, 400);
+	a.AddSDWindow(0, 400, 300, 600);
+	a.AddSDWindow(0, 600, 300, 800);
+	a.AddSDWindow(0, 800, 300, 1000);
+	a.AddSDWindow(0, 1000, 300, 1200);
+	a.SaveToFile(L"D:\\sdForm.sdForm");
+	*/
 
 	// Create the shell manager, in case the dialog contains
 	// any shell tree view or shell list view controls.

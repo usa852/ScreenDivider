@@ -30,4 +30,5 @@ private:
 	unsigned int m_uiColor;
 public:
 	virtual BOOL OnInitDialog();
+	virtual void Serialize(CArchive& ar);
 };

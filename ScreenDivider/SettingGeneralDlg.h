@@ -23,4 +23,5 @@ private:
 public:
 	BOOL m_bStartAuto;
 	virtual BOOL OnInitDialog();
+	virtual void Serialize(CArchive& ar);
 };
