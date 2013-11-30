@@ -14,6 +14,10 @@ CScreenDividerHkApp theApp;
 // Hook procedures
 LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
+// ScreenDivider messages
+#define SDM_CREATEWINDOW	(WM_USER + 1)
+#define SDM_DESTROYWINDOW	(WM_USER + 2)
+
 // Global variables
 ULARGE_INTEGER g_timeLastRefresh = {0, };
 HHOOK g_hHook;
@@ -170,12 +174,22 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 			if (g_curSDWindow.IsRectNull())
 			{
 				isInTitleBar = FALSE;
+
+				// Remove virtual window
+				SendMessage(g_hWndSD, SDM_DESTROYWINDOW, NULL, NULL);
 			}
 			else
 			{
 				if (!isInTitleBar)
 				{
 					isInTitleBar = TRUE;
+
+					// Get index from SDWindow
+					INT_PTR idxSDWindow;
+					idxSDWindow = g_sdForm.GetIndexFromSDWindow(g_curSDWindow);
+
+					// Show virtual window
+					SendMessage(g_hWndSD, SDM_CREATEWINDOW, FALSE, idxSDWindow);
 
 					{
 						CString strRet;
@@ -194,6 +208,9 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 			if (isInTitleBar)
 			{
 				OutputDebugString(L"Moving exited\n");
+
+				// Remove virtual window
+				SendMessage(g_hWndSD, SDM_DESTROYWINDOW, NULL, NULL);
 
 				// Resize target window to fit sdWindow
 				MoveWindow
