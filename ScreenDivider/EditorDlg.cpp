@@ -47,8 +47,9 @@ void CEditorDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	
 	m_pChildWindow = new CEditorWindowDlg();
 	m_pChildWindow->Create(IDD_EDITOR_WINDOW_DIALOG, (CWnd *)this);
-	
-	
+	m_pChildWindow->MoveWindow(point.x, point.y, 0, 0);
+	m_pChildWindow->ShowWindow(SW_SHOW);
+
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
 
