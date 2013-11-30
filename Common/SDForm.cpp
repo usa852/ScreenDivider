@@ -162,3 +162,20 @@ CSDWindow CSDForm::GetSDWindow(int idx)
 
 	return curSDWindow;
 }
+
+INT_PTR CSDForm::GetIndexFromSDWindow(CSDWindow curSDWindow)
+{
+	// Loop all sdWindow
+	int i;
+	for (i=0 ; i<m_arrSDWindow.GetCount() ; i++)
+	{
+		CSDWindow iSDWindow;
+		iSDWindow = m_arrSDWindow[i];
+		if (iSDWindow.EqualRect(curSDWindow))
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}

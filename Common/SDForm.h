@@ -25,4 +25,5 @@ public:
 	INT_PTR AddSDWindow(POINT point, SIZE size);
 	CSDWindow GetSDWindow(const CPoint& cursor);
 	CSDWindow GetSDWindow(int idx);
+	INT_PTR GetIndexFromSDWindow(CSDWindow curSDWindow);
 };
