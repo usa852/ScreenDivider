@@ -14,26 +14,26 @@ CSDForm::CSDForm(void)
 	CSDWindow screen;
 	GetWindowRect(hWnd, &screen);
 
-	// Add screen rect to m_lstSDWindow's first item
-	m_lstSDWindow.AddHead(screen);
+	// Add screen rect to m_arrSDWindow's first item
+	m_arrSDWindow.Add(screen);
 }
 
 CSDForm::CSDForm(CSDWindow screen)
 {
-	m_lstSDWindow.AddHead(screen);
+	m_arrSDWindow.Add(screen);
 }
 
 CSDForm::~CSDForm(void)
 {
 	// Remove all sdwindows
-	m_lstSDWindow.RemoveAll();
+	m_arrSDWindow.RemoveAll();
 }
 
 void CSDForm::Serialize(CArchive& ar)
 {
 	CObject::Serialize(ar);
 
-	m_lstSDWindow.Serialize(ar);
+	m_arrSDWindow.Serialize(ar);
 }
 
 BOOL CSDForm::LoadFromFile(TCHAR strSDFormPath[MAX_PATH])
@@ -42,7 +42,7 @@ BOOL CSDForm::LoadFromFile(TCHAR strSDFormPath[MAX_PATH])
 	BOOL ret;
 
 	// Before load data, remove all data
-	m_lstSDWindow.RemoveAll();
+	m_arrSDWindow.RemoveAll();
 
 	// Open file
 	CFile fileSDForm;
@@ -93,51 +93,39 @@ BOOL CSDForm::SaveToFile(TCHAR strSDFormPath[MAX_PATH])
 	return isSuccess;
 }
 
-POSITION CSDForm::AddSDWindow(CSDWindow &newSDWindow)
+INT_PTR CSDForm::AddSDWindow(CSDWindow &newSDWindow)
 {
-	POSITION posAdded;
-	posAdded = m_lstSDWindow.AddTail(newSDWindow);
-
-	return posAdded;
+	return m_arrSDWindow.Add(newSDWindow);
 }
 
-POSITION CSDForm::AddSDWindow(int l, int t, int r, int b)
+INT_PTR CSDForm::AddSDWindow(int l, int t, int r, int b)
 {
 	CSDWindow newSDWindow(l, t, r, b);
-
-	POSITION posAdded;
-	posAdded = m_lstSDWindow.AddTail(newSDWindow);
-
-	return posAdded;
+	return m_arrSDWindow.Add(newSDWindow);
 }
 
-POSITION CSDForm::AddSDWindow(POINT topLeft, POINT bottomRight)
+INT_PTR CSDForm::AddSDWindow(POINT topLeft, POINT bottomRight)
 {
 	CSDWindow newSDWindow(topLeft, bottomRight);
-
-	POSITION posAdded;
-	posAdded = m_lstSDWindow.AddTail(newSDWindow);
-
-	return posAdded;
+	return m_arrSDWindow.Add(newSDWindow);
 }
 
-POSITION CSDForm::AddSDWindow(POINT point, SIZE size)
+INT_PTR CSDForm::AddSDWindow(POINT point, SIZE size)
 {
 	CSDWindow newSDWindow(point, size);
-
-	POSITION posAdded;
-	posAdded = m_lstSDWindow.AddTail(newSDWindow);
-
-	return posAdded;
+	return m_arrSDWindow.Add(newSDWindow);
 }
 
-VOID CSDForm::RemoveSDWindow(POSITION pos)
+VOID CSDForm::RemoveSDWindow(int idx)
 {
-	// Check valid pos
-	ASSERT(m_lstSDWindow.GetAt(pos));
+	// Check valid index
+	if (m_arrSDWindow.GetCount() <= idx)
+	{
+		return ;
+	}
 
 	// Remove sdwindow from pos
-	m_lstSDWindow.RemoveAt(pos);
+	m_arrSDWindow.RemoveAt(idx);
 }
 
 CSDWindow CSDForm::GetSDWindow(const CPoint& cursor)
@@ -146,13 +134,10 @@ CSDWindow CSDForm::GetSDWindow(const CPoint& cursor)
 
 	// Loop all sdwindow
 	int i;
-	for (i=0 ; i<m_lstSDWindow.GetCount() ; i++)
+	for (i=0 ; i<m_arrSDWindow.GetCount() ; i++)
 	{
-		POSITION pos;
-		pos = m_lstSDWindow.FindIndex(i);
-
 		CSDWindow curSDWindow;
-		curSDWindow = m_lstSDWindow.GetAt(pos);
+		curSDWindow = m_arrSDWindow[i];
 		if (curSDWindow.IsCursorInTitlebar(cursor))
 		{
 			return curSDWindow;
@@ -162,31 +147,18 @@ CSDWindow CSDForm::GetSDWindow(const CPoint& cursor)
 	return curSDWindow;
 }
 
-CSDWindow CSDForm::GetSDWindow(POSITION pos)
-{
-	CSDWindow curSDWindow;
-
-	// Check valid pos
-	ASSERT(m_lstSDWindow.GetAt(pos));
-
-	// Get sdwindow from pos
-	curSDWindow = m_lstSDWindow.GetAt(pos);
-
-	return curSDWindow;
-}
-
 CSDWindow CSDForm::GetSDWindow(int idx)
 {
 	CSDWindow curSDWindow;
 
-	if (m_lstSDWindow.GetCount() <= idx)
+	// Check valid index
+	if (m_arrSDWindow.GetCount() <= idx)
 	{
 		return curSDWindow;
 	}
 
 	// Set current position to head
-	POSITION pos = m_lstSDWindow.FindIndex(idx);
-	curSDWindow = m_lstSDWindow.GetAt(pos);
+	curSDWindow = m_arrSDWindow[idx];
 
 	return curSDWindow;
 }
