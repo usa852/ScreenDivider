@@ -21,6 +21,8 @@ protected:
 public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 //	afx_msg void OnSize(UINT nType, int cx, int cy);
+	virtual BOOL OnInitDialog();
+	afx_msg void OnPaint();
 private:
 	HWND hDlg;
 };
