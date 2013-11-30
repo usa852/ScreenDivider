@@ -24,9 +24,12 @@ CSDWindow g_curSDWindow;
 // Extern functions
 extern "C"
 {
-	__declspec(dllexport) BOOL StartWndProcHook()
+	__declspec(dllexport) BOOL StartWndProcHook(HWND hParent)
 	{
 		BOOL isSuccess = TRUE;
+
+		// Put ScreenDivider's window handle to send message
+		g_hWndSD = hParent;
 
 		// Add hook procedure to hook chain
 		HHOOK hHook;

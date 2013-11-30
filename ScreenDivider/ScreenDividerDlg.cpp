@@ -17,9 +17,11 @@
 #define SDM_CREATEWINDOW	(WM_USER + 1)
 #define SDM_DESTROYWINDOW	(WM_USER + 2)
 
+HWND g_hWnd;
+
 /* Export calls */
 // Hook start
-typedef BOOL (*PFN_STARTWNDPROCHOOK)();
+typedef BOOL (*PFN_STARTWNDPROCHOOK)(HWND hParent);
 BOOL InstallHook()
 {
 	BOOL isSuccess = TRUE;
@@ -47,7 +49,7 @@ BOOL InstallHook()
 	}
 
 	// Call StartWndProcHook() got top
-	StartWndProcHook();
+	StartWndProcHook(g_hWnd);
 
 EXIT:
 	if (hModule != NULL)
@@ -136,6 +138,9 @@ BOOL CScreenDividerDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	// Put window handle at g_hWnd to send hook dll
+	g_hWnd = GetSafeHwnd();
+
 	// Create tray icon
 	ZeroMemory(&m_nid, sizeof(m_nid));
 	m_nid.cbSize = sizeof(NOTIFYICONDATA);

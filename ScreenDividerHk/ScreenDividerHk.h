@@ -10,6 +10,7 @@
 #include "resource.h"		// main symbols
 
 #pragma data_seg(".SHARE")
+	HWND g_hWndSD = 0;
 	TCHAR g_strSDFormPath[MAX_PATH] = L"";
 	ULARGE_INTEGER g_timeLastModified = {0, };
 #pragma data_seg()
