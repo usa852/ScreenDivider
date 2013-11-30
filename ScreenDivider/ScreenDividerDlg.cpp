@@ -14,6 +14,9 @@
 #define UID_TRAY 0
 #define TM_NOTIFICATION (WM_APP + 1)
 
+#define SDM_CREATEWINDOW	(WM_USER + 1)
+#define SDM_DESTROYWINDOW	(WM_USER + 2)
+
 /* Export calls */
 // Hook start
 typedef BOOL (*PFN_STARTWNDPROCHOOK)();
@@ -116,6 +119,8 @@ BEGIN_MESSAGE_MAP(CScreenDividerDlg, CDialogEx)
 	ON_COMMAND(ID_TRAYMENU_SETTINGS, &CScreenDividerDlg::OnTraymenuSettings)
 	ON_WM_WINDOWPOSCHANGING()
 	ON_COMMAND(ID_TRAYMENU_OPEN, &CScreenDividerDlg::OnTraymenuOpen)
+	ON_MESSAGE(SDM_CREATEWINDOW, &CScreenDividerDlg::OnSDCreateWindow)
+	ON_MESSAGE(SDM_DESTROYWINDOW, &CScreenDividerDlg::OnSDDestroyWindow)
 END_MESSAGE_MAP()
 
 
@@ -294,4 +299,93 @@ void CScreenDividerDlg::OnTraymenuOpen()
 							L"Please retry later", MB_OK | MB_ICONSTOP);
 		}
 	}
+}
+
+/*
+	wParam
+		If wParam is TRUE, it specifies that all of the virtual window should be show.
+		If wParam is FALSE, only one virtual window(lParam) should be show.
+	lParam
+		If wParam is TRUE, this parameter is not used.
+		If wParam is FALSE, a index of virtual window in CSDForm.
+*/
+LRESULT CScreenDividerDlg::OnSDCreateWindow(WPARAM wParam, LPARAM lParam)
+{
+	SendMessage(SDM_DESTROYWINDOW, 0, 0);
+
+	if (wParam)
+	{
+		int i;
+		CSDWindow curSDWindow;
+
+		i = 1;	// Except screen size
+		while (!(curSDWindow = m_sdForm.GetSDWindow(i)).IsRectEmpty())
+		{
+			// Create new aero dialog
+			CAeroDlg *pDlgAero;
+			pDlgAero = new CAeroDlg();
+			pDlgAero->Create(IDD_AERO_DIALOG);
+			pDlgAero->MoveWindow
+				(
+					curSDWindow.left,
+					curSDWindow.top,
+					curSDWindow.Width(),
+					curSDWindow.Height()
+				);
+
+			// Add created aero dialog
+			m_arrAeroDlg.Add(pDlgAero);
+
+			// Next sdWindow
+			i++;
+		}
+	}
+	else
+	{
+		CSDWindow curSDWindow;
+		curSDWindow = m_sdForm.GetSDWindow(lParam);
+
+		// Create new aero dialog
+		CAeroDlg *pDlgAero;
+		pDlgAero = new CAeroDlg();
+		pDlgAero->Create(IDD_AERO_DIALOG);
+		pDlgAero->MoveWindow
+			(
+				curSDWindow.left,
+				curSDWindow.top,
+				curSDWindow.Width(),
+				curSDWindow.Height()
+			);
+
+		// Add created aero dialog
+		m_arrAeroDlg.Add(pDlgAero);
+	}
+
+	// Show all of created aero dialog
+	int i;
+	for (i=0 ; i<m_arrAeroDlg.GetCount() ; i++)
+	{
+		m_arrAeroDlg[i]->ShowWindow(SW_SHOW);
+	}
+
+	return 0;
+}
+
+/*
+	wParam
+		This parameter not used.
+	lParam
+		This parameter not used.
+*/
+LRESULT CScreenDividerDlg::OnSDDestroyWindow(WPARAM wParam, LPARAM lParam)
+{
+	// End, delete dialog and remove SDWindow
+	while (!m_arrAeroDlg.IsEmpty())
+	{
+		m_arrAeroDlg[0]->EndDialog(IDOK);
+		delete m_arrAeroDlg[0];
+		m_arrAeroDlg.RemoveAt(0);
+	}
+
+	return 0;
 }

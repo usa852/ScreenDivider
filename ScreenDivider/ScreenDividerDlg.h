@@ -5,6 +5,7 @@
 #pragma once
 #include "EditorDlg.h"
 #include "SettingDlg.h"
+#include "AeroDlg.h"
 
 // CScreenDividerDlg dialog
 class CScreenDividerDlg : public CDialogEx
@@ -30,6 +31,7 @@ protected:
 	CString m_strSDFormPath;
 	CSDForm m_sdForm;
 	BOOL m_isHooked;
+	CArray<CAeroDlg *> m_arrAeroDlg;
 
 protected:
 	// Generated message map functions
@@ -45,4 +47,6 @@ public:
 	afx_msg void OnTraymenuSettings();
 	afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos);
 	afx_msg void OnTraymenuOpen();
+	afx_msg LRESULT OnSDCreateWindow(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnSDDestroyWindow(WPARAM wParam, LPARAM lParam);
 };
