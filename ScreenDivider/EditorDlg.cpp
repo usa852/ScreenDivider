@@ -26,6 +26,46 @@ CArray<CEditorWindowDlg *> *CEditorDlg::GetVirtualWindows(void)
 	return &m_arrPVirtualWindow;
 }
 
+void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
+{
+	// Remove existing virtual windows
+	while (!m_arrPVirtualWindow.IsEmpty())
+	{
+		m_arrPVirtualWindow[0]->EndDialog(IDOK);
+		m_arrPVirtualWindow.RemoveAt(0);
+	}
+
+	int i = 1;
+	while (TRUE)
+	{
+		CSDWindow curSDWindow;
+		curSDWindow = pSDForm->GetSDWindow(i);
+
+		if (curSDWindow.IsRectEmpty())
+		{
+			break;
+		}
+		
+		// Create new virtual window
+		CEditorWindowDlg *pDlgVirtualWindow;
+		pDlgVirtualWindow = new CEditorWindowDlg();
+		pDlgVirtualWindow->Create(IDD_EDITOR_WINDOW_DIALOG, (CWnd *)this);
+		pDlgVirtualWindow->MoveWindow
+			(
+				curSDWindow.left,
+				curSDWindow.top,
+				curSDWindow.Width(),
+				curSDWindow.Height()
+			);
+		pDlgVirtualWindow->ShowWindow(SW_SHOW);
+
+		// Add to list
+		m_arrPVirtualWindow.Add(pDlgVirtualWindow);
+
+		i++;
+	}
+}
+
 void CEditorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);

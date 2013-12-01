@@ -79,17 +79,14 @@ void CEditorToolDlg::OnBnClickedButtonOpen()
 
 	if( dlg.DoModal() == IDOK )
 	{
-		CString strFileName;
-		strFileName = dlg.GetPathName();
+		m_sSDFormPath = dlg.GetPathName();
 
-		if (m_pSDForm)
-		{
-			m_pSDForm->LoadFromFile((TCHAR*)(LPCTSTR)strFileName);
-		}
-		else
-		{
-			// Process error
-		}
+		// Load from file
+		CSDForm sdForm;
+		sdForm.LoadFromFile((TCHAR*)(LPCTSTR)m_sSDFormPath);
+
+		// Create new virtual windows
+		((CEditorDlg *)GetParent())->CreateVirtualWindows(&sdForm);
 	}
 }
 

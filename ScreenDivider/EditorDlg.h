@@ -28,6 +28,7 @@ private:
 
 public:
 	CArray<CEditorWindowDlg *> *GetVirtualWindows(void);
+	void CreateVirtualWindows(CSDForm *pSDForm);
 
 	DECLARE_MESSAGE_MAP()
 public:
