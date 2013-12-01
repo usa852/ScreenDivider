@@ -369,7 +369,7 @@ LRESULT CScreenDividerDlg::OnSDCreateWindow(WPARAM wParam, LPARAM lParam)
 				curSDWindow.Width(),
 				curSDWindow.Height()
 			);
-
+		
 		// Add created aero dialog
 		m_arrAeroDlg.Add(pDlgAero);
 	}
@@ -378,7 +378,20 @@ LRESULT CScreenDividerDlg::OnSDCreateWindow(WPARAM wParam, LPARAM lParam)
 	int i;
 	for (i=0 ; i<m_arrAeroDlg.GetCount() ; i++)
 	{
-		m_arrAeroDlg[i]->ShowWindow(SW_SHOW);
+		if (wParam)
+		{
+			m_arrAeroDlg[i]->ShowWindow(SW_SHOW);
+		}
+		else
+		{
+			CRect rectWindow;
+			m_arrAeroDlg[i]->GetWindowRect(rectWindow);
+
+			CPoint ptCursor;
+			GetCursorPos(&ptCursor);
+
+			m_arrAeroDlg[i]->ShowWindowWithEffect(ptCursor, rectWindow, 100);
+		}
 	}
 
 	return 0;
