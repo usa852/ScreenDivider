@@ -97,23 +97,50 @@ void CEditorToolDlg::OnBnClickedButtonOpen()
 void CEditorToolDlg::OnBnClickedButtonSave()
 {
 	// TODO: Add your control notification handler code here
-	TCHAR strFilter[] = { TEXT("ScreenDivider form file (*.sdf)|*.sdf||") };
-	CFileDialog dlg(FALSE, TEXT("leeju.sdf"), NULL, 0, strFilter);
-
-	if( dlg.DoModal() == IDOK )
+	if (!m_sSDFormPath.IsEmpty())
 	{
-		CString strFileName;
-		strFileName = dlg.GetPathName();
+	}
+	else
+	{
+		TCHAR strFilter[] = { TEXT("ScreenDivider form file (*.sdf)|*.sdf||") };
+		CFileDialog dlg(FALSE, TEXT("leeju.sdf"), NULL, 0, strFilter);
 
-		if (m_pSDForm)
+		if( dlg.DoModal() == IDOK )
 		{
-			m_pSDForm->LoadFromFile((TCHAR*)(LPCTSTR)strFileName);
+			m_sSDFormPath = dlg.GetPathName();
 		}
 		else
 		{
-			// Process error
+			return ;
 		}
 	}
+
+	CArray<CEditorWindowDlg *> *pArrPVirtualWindow;
+	pArrPVirtualWindow = ((CEditorDlg *)GetParent())->GetVirtualWindows();
+
+	CSDForm sdForm;
+	int i;
+	for (i=0 ; i<pArrPVirtualWindow->GetCount() ; i++)
+	{
+		CEditorWindowDlg *pCurVirtualWindow;
+		pCurVirtualWindow = pArrPVirtualWindow->GetAt(i);
+
+		if (pCurVirtualWindow->IsWindowVisible())
+		{
+			CRect rectVirtualWindow;
+			pCurVirtualWindow->GetWindowRect(&rectVirtualWindow);
+
+			sdForm.AddSDWindow
+				(
+					rectVirtualWindow.left,
+					rectVirtualWindow.top,
+					rectVirtualWindow.right,
+					rectVirtualWindow.bottom
+				);
+		}
+	}
+
+	sdForm.SaveToFile((TCHAR*)(LPCTSTR)m_sSDFormPath);
 }
 
 
@@ -121,22 +148,42 @@ void CEditorToolDlg::OnBnClickedButtonSaveas()
 {
 	// TODO: Add your control notification handler code here
 	TCHAR strFilter[] = { TEXT("ScreenDivider form file (*.sdf)|*.sdf||") };
-	CFileDialog dlg(FALSE, TEXT(".sdf"), NULL, 0, strFilter);
-
+	CFileDialog dlg(FALSE, TEXT("leeju.sdf"), NULL, 0, strFilter);
 	if( dlg.DoModal() == IDOK )
 	{
-		CString strFileName;
-		strFileName = dlg.GetPathName();
+		m_sSDFormPath = dlg.GetPathName();
+	}
+	else
+	{
+		return ;
+	}
 
-		if (m_pSDForm)
+	CArray<CEditorWindowDlg *> *pArrPVirtualWindow;
+	pArrPVirtualWindow = ((CEditorDlg *)GetParent())->GetVirtualWindows();
+
+	CSDForm sdForm;
+	int i;
+	for (i=0 ; i<pArrPVirtualWindow->GetCount() ; i++)
+	{
+		CEditorWindowDlg *pCurVirtualWindow;
+		pCurVirtualWindow = pArrPVirtualWindow->GetAt(i);
+
+		if (pCurVirtualWindow)
 		{
-			m_pSDForm->LoadFromFile((TCHAR*)(LPCTSTR)strFileName);
-		}
-		else
-		{
-			// Process error
+			CRect rectVirtualWindow;
+			pCurVirtualWindow->GetWindowRect(&rectVirtualWindow);
+
+			sdForm.AddSDWindow
+				(
+					rectVirtualWindow.left,
+					rectVirtualWindow.top,
+					rectVirtualWindow.right,
+					rectVirtualWindow.bottom
+				);
 		}
 	}
+
+	sdForm.SaveToFile((TCHAR*)(LPCTSTR)m_sSDFormPath);
 }
 
 

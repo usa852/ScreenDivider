@@ -36,4 +36,7 @@ public:
 	CBitmapButtonEx m_btnTrans;
 	CBitmapButtonEx m_btnEnd;
 	virtual BOOL OnInitDialog();
+
+private:
+	CString m_sSDFormPath;
 };
