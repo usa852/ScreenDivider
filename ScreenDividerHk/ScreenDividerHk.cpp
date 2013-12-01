@@ -20,6 +20,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Global variables
 ULARGE_INTEGER g_timeLastModified = {0, };
+TCHAR g_strSDFormPath[MAX_PATH] = L"";
 HHOOK g_hHook;
 BOOL isInTitleBar;
 CSDForm g_sdForm;
@@ -86,21 +87,12 @@ extern "C"
 			goto EXIT;
 		}
 
-		// Refresh g_timeLastModified
+		// Refresh s_timeLastModified and s_strSDFormPath
 		s_timeLastModified.LowPart = timeFile.dwLowDateTime;
 		s_timeLastModified.HighPart = timeFile.dwHighDateTime;
-
-		// Check new file is
-		if (wcsncmp(strSDFormPath, s_strSDFormPath,
-					(wcslen(strSDFormPath) < wcslen(s_strSDFormPath)) ? 
-						wcslen(s_strSDFormPath) : 
-						wcslen(strSDFormPath)
-					)
-			)
+		if (lstrlen(strSDFormPath) < MAX_PATH)
 		{
-			// If new file, initialize some datas.
-			wsprintf(s_strSDFormPath, strSDFormPath);
-			g_timeLastModified.QuadPart = 0;
+			lstrcpy(s_strSDFormPath, strSDFormPath);
 		}
 
 		{
@@ -157,6 +149,20 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
+			// Check new file is
+			if (wcsncmp(g_strSDFormPath, s_strSDFormPath,
+						(wcslen(g_strSDFormPath) < wcslen(s_strSDFormPath)) ? 
+							wcslen(s_strSDFormPath) : 
+							wcslen(g_strSDFormPath)
+						)
+				)
+			{
+				// If new file, initialize some datas.
+				wsprintf(g_strSDFormPath, s_strSDFormPath);
+				g_timeLastModified.QuadPart = 0;
+			}
+
+			// Check refreshed
 			if (g_timeLastModified.QuadPart < s_timeLastModified.QuadPart)
 			{
 				// Reload data
