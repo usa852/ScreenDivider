@@ -52,6 +52,8 @@ void CEditorDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 	m_arrPVirtualWindow.Add(pDlgVirtualWindow);
 
+	SetCapture();
+
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
 
@@ -60,6 +62,8 @@ void CEditorDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	m_isDown = false;
+
+	ReleaseCapture();
 
 	CDialogEx::OnLButtonUp(nFlags, point);
 }
