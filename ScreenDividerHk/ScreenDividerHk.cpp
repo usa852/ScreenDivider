@@ -19,7 +19,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam);
 #define SDM_DESTROYWINDOW	(WM_USER + 2)
 
 // Global variables
-ULARGE_INTEGER g_timeLastRefresh = {0, };
+ULARGE_INTEGER g_timeLastModified = {0, };
 HHOOK g_hHook;
 BOOL isInTitleBar;
 CSDForm g_sdForm;
@@ -33,7 +33,7 @@ extern "C"
 		BOOL isSuccess = TRUE;
 
 		// Put ScreenDivider's window handle to send message
-		g_hWndSD = hParent;
+		s_hWndSD = hParent;
 
 		// Add hook procedure to hook chain
 		HHOOK hHook;
@@ -87,29 +87,29 @@ extern "C"
 		}
 
 		// Refresh g_timeLastModified
-		g_timeLastModified.LowPart = timeFile.dwLowDateTime;
-		g_timeLastModified.HighPart = timeFile.dwHighDateTime;
+		s_timeLastModified.LowPart = timeFile.dwLowDateTime;
+		s_timeLastModified.HighPart = timeFile.dwHighDateTime;
 
 		// Check new file is
-		if (wcsncmp(strSDFormPath, g_strSDFormPath,
-					(wcslen(strSDFormPath) < wcslen(g_strSDFormPath)) ? 
-						wcslen(g_strSDFormPath) : 
+		if (wcsncmp(strSDFormPath, s_strSDFormPath,
+					(wcslen(strSDFormPath) < wcslen(s_strSDFormPath)) ? 
+						wcslen(s_strSDFormPath) : 
 						wcslen(strSDFormPath)
 					)
 			)
 		{
 			// If new file, initialize some datas.
-			wsprintf(g_strSDFormPath, strSDFormPath);
-			g_timeLastRefresh.QuadPart = 0;
+			wsprintf(s_strSDFormPath, strSDFormPath);
+			g_timeLastModified.QuadPart = 0;
 		}
 
 		{
 			TCHAR strRet[MAX_PATH] = {0, };
 
 			wsprintf(strRet, L"%s %d %d\n",
-							g_strSDFormPath,
+							s_strSDFormPath,
 							g_timeLastModified.QuadPart,
-							g_timeLastRefresh.QuadPart
+							g_timeLastModified.QuadPart
 					);
 			OutputDebugString(strRet);
 		}
@@ -157,16 +157,16 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 
-			if (g_timeLastRefresh.QuadPart < g_timeLastModified.QuadPart)
+			if (g_timeLastModified.QuadPart < s_timeLastModified.QuadPart)
 			{
 				// Reload data
 				OutputDebugString(L"Reload sdForm file\n");
 
 				// Load sdForm data from file
-				g_sdForm.LoadFromFile(g_strSDFormPath);
+				g_sdForm.LoadFromFile(s_strSDFormPath);
 
 				// Sync refresh time with modifed time
-				g_timeLastRefresh.QuadPart = g_timeLastModified.QuadPart;
+				g_timeLastModified.QuadPart = s_timeLastModified.QuadPart;
 			}
 
 			// Check the cursor come in the title bar
@@ -176,7 +176,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				isInTitleBar = FALSE;
 
 				// Remove virtual window
-				SendMessage(g_hWndSD, SDM_DESTROYWINDOW, NULL, NULL);
+				SendMessage(s_hWndSD, SDM_DESTROYWINDOW, NULL, NULL);
 			}
 			else
 			{
@@ -189,7 +189,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 					idxSDWindow = g_sdForm.GetIndexFromSDWindow(g_curSDWindow);
 
 					// Show virtual window
-					SendMessage(g_hWndSD, SDM_CREATEWINDOW, FALSE, idxSDWindow);
+					SendMessage(s_hWndSD, SDM_CREATEWINDOW, FALSE, idxSDWindow);
 
 					{
 						CString strRet;
@@ -210,7 +210,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				OutputDebugString(L"Moving exited\n");
 
 				// Remove virtual window
-				SendMessage(g_hWndSD, SDM_DESTROYWINDOW, NULL, NULL);
+				SendMessage(s_hWndSD, SDM_DESTROYWINDOW, NULL, NULL);
 
 				// Resize target window to fit sdWindow
 				MoveWindow
