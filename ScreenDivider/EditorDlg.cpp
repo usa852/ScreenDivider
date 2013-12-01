@@ -21,6 +21,11 @@ CEditorDlg::~CEditorDlg()
 {
 }
 
+CArray<CEditorWindowDlg *> *CEditorDlg::GetVirtualWindows(void)
+{
+	return &m_arrPVirtualWindow;
+}
+
 void CEditorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);

@@ -26,6 +26,9 @@ private:
 	bool m_isDown;
 	CArray<CEditorWindowDlg *> m_arrPVirtualWindow;
 
+public:
+	CArray<CEditorWindowDlg *> *GetVirtualWindows(void);
+
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
