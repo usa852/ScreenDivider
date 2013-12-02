@@ -3,7 +3,7 @@
 
 // CEditorTransDlg 대화 상자입니다.
 
-class CEditorTransDlg : public CDialogEx
+class CEditorTransDlg : public CFlatDialogEx
 {
 	DECLARE_DYNAMIC(CEditorTransDlg)
 
