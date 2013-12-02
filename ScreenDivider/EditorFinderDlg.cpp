@@ -3,16 +3,16 @@
 
 #include "stdafx.h"
 #include "ScreenDivider.h"
-#include "FinderDlg.h"
+#include "EditorFinderDlg.h"
 #include "afxdialogex.h"
 
 
 // CFinderDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CFinderDlg, CFlatDialogEx)
+IMPLEMENT_DYNAMIC(CEditorFinderDlg, CFlatDialogEx)
 
-CFinderDlg::CFinderDlg(CWnd* pParent /*=NULL*/)
-	: CFlatDialogEx(CFinderDlg::IDD, pParent)
+CEditorFinderDlg::CEditorFinderDlg(CWnd* pParent /*=NULL*/)
+	: CFlatDialogEx(CEditorFinderDlg::IDD, pParent)
 {
 	m_Y = 0;
 	m_X = 0;
@@ -20,11 +20,11 @@ CFinderDlg::CFinderDlg(CWnd* pParent /*=NULL*/)
 	m_HEIGHT = 0;
 }
 
-CFinderDlg::~CFinderDlg()
+CEditorFinderDlg::~CEditorFinderDlg()
 {
 }
 
-void CFinderDlg::DoDataExchange(CDataExchange* pDX)
+void CEditorFinderDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CFlatDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_FINDER, m_btnFinder);
@@ -35,12 +35,12 @@ void CFinderDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 
-BEGIN_MESSAGE_MAP(CFinderDlg, CFlatDialogEx)
+BEGIN_MESSAGE_MAP(CEditorFinderDlg, CFlatDialogEx)
 END_MESSAGE_MAP()
 
 
 // CFinderDlg 메시지 처리기입니다.
-BOOL CFinderDlg::PreTranslateMessage(MSG* pMsg)
+BOOL CEditorFinderDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	CButton *pButton;
@@ -67,7 +67,7 @@ BOOL CFinderDlg::PreTranslateMessage(MSG* pMsg)
 	return CFlatDialogEx::PreTranslateMessage(pMsg);
 }
 
-BOOL CFinderDlg::OnInitDialog()
+BOOL CEditorFinderDlg::OnInitDialog()
 {
 	CFlatDialogEx::OnInitDialog();
 

@@ -234,7 +234,7 @@
     <ClInclude Include="EditorToolDlg.h" />
     <ClInclude Include="EditorTransDlg.h" />
     <ClInclude Include="EditorWindowDlg.h" />
-    <ClInclude Include="FinderDlg.h" />
+    <ClInclude Include="EditorFinderDlg.h" />
     <ClInclude Include="FlatDialogEx.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScreenDivider.h" />
@@ -255,7 +255,7 @@
     <ClCompile Include="EditorToolDlg.cpp" />
     <ClCompile Include="EditorTransDlg.cpp" />
     <ClCompile Include="EditorWindowDlg.cpp" />
-    <ClCompile Include="FinderDlg.cpp" />
+    <ClCompile Include="EditorFinderDlg.cpp" />
     <ClCompile Include="FlatDialogEx.cpp" />
     <ClCompile Include="ScreenDivider.cpp" />
     <ClCompile Include="ScreenDividerDlg.cpp" />

@@ -2,16 +2,16 @@
 
 // CFinderDlg 대화 상자입니다.
 
-class CFinderDlg : public CFlatDialogEx
+class CEditorFinderDlg : public CFlatDialogEx
 {
-	DECLARE_DYNAMIC(CFinderDlg)
+	DECLARE_DYNAMIC(CEditorFinderDlg)
 
 public:
-	CFinderDlg(CWnd* pParent = NULL);   // 표준 생성자입니다.
-	virtual ~CFinderDlg();
+	CEditorFinderDlg(CWnd* pParent = NULL);   // 표준 생성자입니다.
+	virtual ~CEditorFinderDlg();
 
 // 대화 상자 데이터입니다.
-	enum { IDD = IDD_FINDER_DIALOG };
+	enum { IDD = IDD_EDITOR_FINDER_DIALOG };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
