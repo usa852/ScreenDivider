@@ -24,6 +24,7 @@ protected:
 	int m_X;
 	int m_WIDTH;
 	int m_HEIGHT;
+	BOOL m_isMouseDown;
 
 // Message handlres
 public:

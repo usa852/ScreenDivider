@@ -18,6 +18,7 @@ CEditorFinderDlg::CEditorFinderDlg(CWnd* pParent /*=NULL*/)
 	m_X = 0;
 	m_WIDTH = 0;
 	m_HEIGHT = 0;
+	m_isMouseDown = FALSE;
 }
 
 CEditorFinderDlg::~CEditorFinderDlg()
@@ -43,19 +44,8 @@ END_MESSAGE_MAP()
 BOOL CEditorFinderDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	CBitmapButtonEx *pButton;
-	pButton = (CBitmapButtonEx *)GetDlgItem(IDC_BUTTON_FINDER);
-	pButton->LoadBitmaps
-		(
-			IDB_BITMAP_FINDER_ICON,
-			IDB_BITMAP_FINDER_ICON_HOVER,
-			IDB_BITMAP_FINDER_ICON_SEL,
-			IDB_BITMAP_FINDER_ICON,
-			IDB_BITMAP_FINDER_ICON_DISABLED
-		);
-		
 	CRect rectButton;
-	pButton->GetWindowRect(rectButton);
+	m_btnFinder.GetWindowRect(rectButton);
 
 	if (rectButton.PtInRect(pMsg->pt))
 	{
@@ -64,10 +54,37 @@ BOOL CEditorFinderDlg::PreTranslateMessage(MSG* pMsg)
 		case WM_LBUTTONDOWN:
 			SetCursor(LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_CURSOR_FINDER)));
 			SetCapture();
-			break;
-		case WM_MOUSEMOVE:
+			m_isMouseDown = TRUE;
 			break;
 		case WM_LBUTTONUP:
+			ReleaseCapture();
+			m_isMouseDown = FALSE;
+			break;
+		}
+	}
+	else
+	{
+		switch (pMsg->message)
+		{
+		case WM_MOUSEMOVE:
+			if (m_isMouseDown)
+			{
+				CPoint ptCursor;
+				GetCursorPos(&ptCursor);
+
+				CWnd *pWndFinded;
+				pWndFinded = WindowFromPoint(ptCursor);
+
+				CRect rectWindow;
+				pWndFinded->GetWindowRect(rectWindow);
+
+				UpdateData(TRUE);
+				m_X = rectWindow.left;
+				m_Y = rectWindow.top;
+				m_WIDTH = rectWindow.Width();
+				m_HEIGHT = rectWindow.Height();
+				UpdateData(FALSE);
+			}
 			break;
 		}
 	}
@@ -80,7 +97,13 @@ BOOL CEditorFinderDlg::OnInitDialog()
 	CFlatDialogEx::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	m_btnFinder.LoadBitmaps(IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER, IDB_BITMAP_FINDER);
+	m_btnFinder.LoadBitmaps
+		(
+			IDB_BITMAP_FINDER_ICON,
+			IDB_BITMAP_FINDER_ICON_SEL,
+			IDB_BITMAP_FINDER_ICON,
+			IDB_BITMAP_FINDER_ICON_DISABLED
+		);
 	m_btnFinder.SizeToContent();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
