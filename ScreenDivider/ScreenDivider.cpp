@@ -7,11 +7,7 @@
 #include "ScreenDividerDlg.h"
 #include "AeroDlg.h"
 #include "EditorDlg.h"
-#include "EditorToolDlg.h"
-#include "FinderDlg.h"
 #include "SettingDlg.h"
-#include "SettingGeneralDlg.h"
-#include "SettingStyleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

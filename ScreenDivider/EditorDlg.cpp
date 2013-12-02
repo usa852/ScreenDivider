@@ -5,7 +5,6 @@
 #include "ScreenDivider.h"
 #include "EditorDlg.h"
 #include "afxdialogex.h"
-#include <math.h>
 
 // CEditorDlg 대화 상자입니다.
 

@@ -17,19 +17,23 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-	DECLARE_MESSAGE_MAP()
+// Member variables
+private:
+	unsigned int m_uiStyle;
+	unsigned int m_uiColor;
+
+// Member functions
 public:
+	virtual BOOL OnInitDialog();
+	virtual void Serialize(CArchive& ar);
+
+// Message handlers
+public:
+	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedAeroStyle();
 	afx_msg void OnBnClickedFlatStyle();
 	afx_msg void OnBnClickedStyleRed();
 	afx_msg void OnBnClickedStyleGreen();
 	afx_msg void OnBnClickedStyleBlue();
-//	BOOL m_nb;
-private:
-	unsigned int m_uiStyle;
-	unsigned int m_uiColor;
-public:
-	virtual BOOL OnInitDialog();
-	virtual void Serialize(CArchive& ar);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };

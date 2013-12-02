@@ -1,6 +1,4 @@
 #pragma once
-#include "afxwin.h"
-
 
 // CFinderDlg 대화 상자입니다.
 
@@ -18,13 +16,18 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-	DECLARE_MESSAGE_MAP()
-public:
+// Child controls
 	CBitmapButton m_btnFinder;
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
+
+// Member variables
 	int m_Y;
 	int m_X;
 	int m_WIDTH;
 	int m_HEIGHT;
+
+// Message handlres
+public:
+	DECLARE_MESSAGE_MAP()
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnInitDialog();
 };

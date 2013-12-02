@@ -1,6 +1,4 @@
 #pragma once
-#include "afxwin.h"
-
 
 // CEditorToolDlg dialog
 
@@ -18,8 +16,21 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
+// Child controls
+	CBitmapButtonEx m_btnNew;
+	CBitmapButtonEx m_btnOpen;
+	CBitmapButtonEx m_btnSave;
+	CBitmapButtonEx m_btnSaveas;
+	CBitmapButtonEx m_btnFinder;
+	CBitmapButtonEx m_btnTrans;
+	CBitmapButtonEx m_btnEnd;
+
+// Member variables
 private:
 	CSDForm *m_pSDForm;
+	CString m_sSDFormPath;
+
+// Message handlers
 public:
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnMove(int x, int y);
@@ -28,15 +39,5 @@ public:
 	afx_msg void OnBnClickedButtonSave();
 	afx_msg void OnBnClickedButtonSaveas();
 	afx_msg void OnBnClickedButtonEnd();
-	CBitmapButtonEx m_btnNew;
-	CBitmapButtonEx m_btnOpen;
-	CBitmapButtonEx m_btnSave;
-	CBitmapButtonEx m_btnSaveas;
-	CBitmapButtonEx m_btnFinder;
-	CBitmapButtonEx m_btnTrans;
-	CBitmapButtonEx m_btnEnd;
 	virtual BOOL OnInitDialog();
-
-private:
-	CString m_sSDFormPath;
 };

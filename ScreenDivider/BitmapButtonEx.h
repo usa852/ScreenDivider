@@ -28,9 +28,11 @@ public:
 
 	BOOL PreTranslateMessage(MSG* pMsg);
 
-	DECLARE_MESSAGE_MAP()
-
+// Member variables
 private:
 	CBitmap m_bitmapHover;
+
+// Message handlers
+	DECLARE_MESSAGE_MAP()
 };
 
