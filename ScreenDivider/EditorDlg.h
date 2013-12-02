@@ -32,6 +32,8 @@ private:
 public:
 	CArray<CEditorWindowDlg *> *GetVirtualWindows(void);
 	void CreateVirtualWindows(CSDForm *pSDForm);
+	void ShowVirtualWindows();
+	void HideVirtualWindows();
 	void DestroyVirtualWindows();
 
 // Message handlers

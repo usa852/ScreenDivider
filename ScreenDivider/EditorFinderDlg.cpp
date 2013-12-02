@@ -5,6 +5,7 @@
 #include "ScreenDivider.h"
 #include "EditorFinderDlg.h"
 #include "afxdialogex.h"
+#include "EditorDlg.h"
 
 
 // CFinderDlg 대화 상자입니다.
@@ -52,13 +53,19 @@ BOOL CEditorFinderDlg::PreTranslateMessage(MSG* pMsg)
 		switch (pMsg->message)
 		{
 		case WM_LBUTTONDOWN:
+			{
+			// Hide dialogs that unneed to use finder
+			CEditorDlg *pDlgEditor;
+			pDlgEditor = (CEditorDlg *)(GetParent()->GetParent());
+			pDlgEditor->HideVirtualWindows();
+			pDlgEditor->ShowWindow(SW_HIDE);
+
+			// Change cursor and sustain receving message
 			SetCursor(LoadCursor(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDC_CURSOR_FINDER)));
 			SetCapture();
+
 			m_isMouseDown = TRUE;
-			break;
-		case WM_LBUTTONUP:
-			ReleaseCapture();
-			m_isMouseDown = FALSE;
+			}
 			break;
 		}
 	}
@@ -84,6 +91,23 @@ BOOL CEditorFinderDlg::PreTranslateMessage(MSG* pMsg)
 				m_WIDTH = rectWindow.Width();
 				m_HEIGHT = rectWindow.Height();
 				UpdateData(FALSE);
+			}
+			break;
+		case WM_LBUTTONUP:
+			{
+				if (m_isMouseDown)
+				{
+				// Show dialogs that unneed to use finder
+				CEditorDlg *pDlgEditor;
+				pDlgEditor = (CEditorDlg *)(GetParent()->GetParent());
+				pDlgEditor->ShowVirtualWindows();
+				pDlgEditor->ShowWindow(SW_SHOW);
+
+				// Put receiving message
+				ReleaseCapture();
+
+				m_isMouseDown = FALSE;
+				}
 			}
 			break;
 		}

@@ -61,6 +61,44 @@ void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
 	}
 }
 
+void CEditorDlg::HideVirtualWindows()
+{
+	int i;
+	for (i=0 ; i<m_arrPVirtualWindow.GetCount() ; i++)
+	{
+		CEditorWindowDlg *pCurVirtualWindow;
+		pCurVirtualWindow = m_arrPVirtualWindow[i];
+
+		if (pCurVirtualWindow->IsWindowVisible())
+		{
+			// Hide dialog
+			pCurVirtualWindow->ShowWindow(SW_HIDE);
+		}
+		else
+		{
+			// Arrange ended dialog
+			m_arrPVirtualWindow.RemoveAt(i);
+
+			// And reloop in this iterator
+			i--;
+			continue;
+		}
+	}
+}
+
+void CEditorDlg::ShowVirtualWindows()
+{
+	int i;
+	for (i=0 ; i<m_arrPVirtualWindow.GetCount() ; i++)
+	{
+		CEditorWindowDlg *pCurVirtualWindow;
+		pCurVirtualWindow = m_arrPVirtualWindow[i];
+
+		// Show dialog
+		pCurVirtualWindow->ShowWindow(SW_SHOW);
+	}
+}
+
 void CEditorDlg::DestroyVirtualWindows()
 {
 	// Remove existing virtual windows
