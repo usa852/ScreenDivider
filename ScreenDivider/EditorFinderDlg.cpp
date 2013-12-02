@@ -43,8 +43,16 @@ END_MESSAGE_MAP()
 BOOL CEditorFinderDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-	CButton *pButton;
-	pButton = (CButton *)GetDlgItem(IDC_BUTTON_FINDER);
+	CBitmapButtonEx *pButton;
+	pButton = (CBitmapButtonEx *)GetDlgItem(IDC_BUTTON_FINDER);
+	pButton->LoadBitmaps
+		(
+			IDB_BITMAP_FINDER_ICON,
+			IDB_BITMAP_FINDER_ICON_HOVER,
+			IDB_BITMAP_FINDER_ICON_SEL,
+			IDB_BITMAP_FINDER_ICON,
+			IDB_BITMAP_FINDER_ICON_DISABLED
+		);
 		
 	CRect rectButton;
 	pButton->GetWindowRect(rectButton);
