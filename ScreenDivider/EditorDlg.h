@@ -1,6 +1,4 @@
 #pragma once
-#include "../Common/SDForm.h"
-#include "../Common/common.h"
 #include "EditorToolDlg.h"
 #include "EditorWindowDlg.h"
 
@@ -20,18 +18,27 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
+// Child dialogs
 private:
 	CEditorToolDlg *m_pDlgEditorTool;
-	CPoint m_start,m_end;
-	bool m_isDown;
 	CArray<CEditorWindowDlg *> m_arrPVirtualWindow;
 
+// Member variables
+private:
+	CPoint m_start,m_end;
+	bool m_isDown;
+
+// Member functions
 public:
 	CArray<CEditorWindowDlg *> *GetVirtualWindows(void);
 	void CreateVirtualWindows(CSDForm *pSDForm);
+	void ShowVirtualWindows();
+	void HideVirtualWindows();
+	void DestroyVirtualWindows();
 
-	DECLARE_MESSAGE_MAP()
+// Message handlers
 public:
+	DECLARE_MESSAGE_MAP()
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);

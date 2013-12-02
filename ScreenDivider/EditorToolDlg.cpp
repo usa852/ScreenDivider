@@ -41,6 +41,8 @@ BEGIN_MESSAGE_MAP(CEditorToolDlg, CFlatDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CEditorToolDlg::OnBnClickedButtonSave)
 	ON_BN_CLICKED(IDC_BUTTON_SAVEAS, &CEditorToolDlg::OnBnClickedButtonSaveas)
 	ON_BN_CLICKED(IDC_BUTTON_END, &CEditorToolDlg::OnBnClickedButtonEnd)
+	ON_BN_CLICKED(IDC_BUTTON_FINDER, &CEditorToolDlg::OnBnClickedButtonFinder)
+	ON_BN_CLICKED(IDC_BUTTON_TRANS, &CEditorToolDlg::OnBnClickedButtonTrans)
 END_MESSAGE_MAP()
 
 
@@ -62,9 +64,14 @@ void CEditorToolDlg::OnBnClickedButtonNew()
 	switch (ret)
 	{
 	case IDYES:OnBnClickedButtonSave();
+		// Init datas
+		m_sSDFormPath = L"";
+		((CEditorDlg *)GetParent())->DestroyVirtualWindows();
 		break;
 	case IDNO:
-		// Init sdForm
+		// Init datas
+		m_sSDFormPath = L"";
+		((CEditorDlg *)GetParent())->DestroyVirtualWindows();
 		break;
 	case IDCANCEL:
 		break;
@@ -265,4 +272,22 @@ BOOL CEditorToolDlg::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+
+void CEditorToolDlg::OnBnClickedButtonFinder()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_pDlgEditorFinder = new CEditorFinderDlg();
+	m_pDlgEditorFinder->Create(IDD_EDITOR_FINDER_DIALOG, this);
+	m_pDlgEditorFinder->ShowWindow(SW_SHOW);
+}
+
+
+void CEditorToolDlg::OnBnClickedButtonTrans()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_pDlgEditorTrans = new CEditorTransDlg();
+	m_pDlgEditorTrans->Create(IDD_EDITOR_TRANS_DIALOG, this);
+	m_pDlgEditorTrans->ShowWindow(SW_SHOW);
 }

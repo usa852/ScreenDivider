@@ -3,7 +3,7 @@
 
 // CEditorTransDlg 대화 상자입니다.
 
-class CEditorTransDlg : public CDialogEx
+class CEditorTransDlg : public CFlatDialogEx
 {
 	DECLARE_DYNAMIC(CEditorTransDlg)
 
@@ -17,7 +17,9 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-	DECLARE_MESSAGE_MAP()
+// Message handlers
 public:
+	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnInitDialog();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

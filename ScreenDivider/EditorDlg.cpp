@@ -5,7 +5,6 @@
 #include "ScreenDivider.h"
 #include "EditorDlg.h"
 #include "afxdialogex.h"
-#include <math.h>
 
 // CEditorDlg 대화 상자입니다.
 
@@ -28,12 +27,8 @@ CArray<CEditorWindowDlg *> *CEditorDlg::GetVirtualWindows(void)
 
 void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
 {
-	// Remove existing virtual windows
-	while (!m_arrPVirtualWindow.IsEmpty())
-	{
-		m_arrPVirtualWindow[0]->EndDialog(IDOK);
-		m_arrPVirtualWindow.RemoveAt(0);
-	}
+	
+	DestroyVirtualWindows();
 
 	int i = 1;
 	while (TRUE)
@@ -63,6 +58,54 @@ void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
 		m_arrPVirtualWindow.Add(pDlgVirtualWindow);
 
 		i++;
+	}
+}
+
+void CEditorDlg::HideVirtualWindows()
+{
+	int i;
+	for (i=0 ; i<m_arrPVirtualWindow.GetCount() ; i++)
+	{
+		CEditorWindowDlg *pCurVirtualWindow;
+		pCurVirtualWindow = m_arrPVirtualWindow[i];
+
+		if (pCurVirtualWindow->IsWindowVisible())
+		{
+			// Hide dialog
+			pCurVirtualWindow->ShowWindow(SW_HIDE);
+		}
+		else
+		{
+			// Arrange ended dialog
+			m_arrPVirtualWindow.RemoveAt(i);
+
+			// And reloop in this iterator
+			i--;
+			continue;
+		}
+	}
+}
+
+void CEditorDlg::ShowVirtualWindows()
+{
+	int i;
+	for (i=0 ; i<m_arrPVirtualWindow.GetCount() ; i++)
+	{
+		CEditorWindowDlg *pCurVirtualWindow;
+		pCurVirtualWindow = m_arrPVirtualWindow[i];
+
+		// Show dialog
+		pCurVirtualWindow->ShowWindow(SW_SHOW);
+	}
+}
+
+void CEditorDlg::DestroyVirtualWindows()
+{
+	// Remove existing virtual windows
+	while (!m_arrPVirtualWindow.IsEmpty())
+	{
+		m_arrPVirtualWindow[0]->EndDialog(IDOK);
+		m_arrPVirtualWindow.RemoveAt(0);
 	}
 }
 

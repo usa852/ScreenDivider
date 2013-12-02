@@ -26,21 +26,25 @@ protected:
 	HICON m_hIcon;
 	NOTIFYICONDATA m_nid;
 
+// Child dialogs
+private:
 	CEditorDlg m_dlgEditor;
 	CSettingDlg m_dlgSetting;
+	CArray<CAeroDlg *> m_arrAeroDlg;
+
+// Member variables
+private:
 	CString m_strSDFormPath;
 	CSDForm m_sdForm;
 	BOOL m_isHooked;
-	CArray<CAeroDlg *> m_arrAeroDlg;
 
-protected:
-	// Generated message map functions
+// Message handlers
+public:
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();	
 	afx_msg LRESULT OnTrayNotification(WPARAM wParam, LPARAM lParam);
-public:
 	virtual BOOL DestroyWindow();
 	afx_msg void OnTraymenuQuit();
 	afx_msg void OnTraymenuEditor();

@@ -18,15 +18,19 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
-	DECLARE_MESSAGE_MAP()
-public:
-	virtual BOOL OnInitDialog();
-
+// Child dialogs
 private:
 	CSettingStyleDlg *m_pDlgStyle;
 	CSettingGeneralDlg *m_pDlgGeneral;
+
+// Child controls
+private:
 	CListCtrl m_List;
+
+// Message handlers
 public:
+	DECLARE_MESSAGE_MAP()
+	virtual BOOL OnInitDialog();
 	afx_msg void OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult);
 	virtual void Serialize(CArchive& ar);
 	afx_msg void OnBnClickedButton1();

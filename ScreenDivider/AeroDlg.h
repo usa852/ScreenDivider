@@ -17,17 +17,19 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
-	DECLARE_MESSAGE_MAP()
-public:
-	virtual BOOL OnInitDialog();
-	afx_msg void OnPaint();
-	afx_msg void OnTimer(UINT_PTR nIDEvent);
-
-public:
-	void ShowWindowWithEffect(POINT ptCursor, CRect rectWindow, DWORD dwTime);
-
-	// For effect timer
+// Member variables
 private:
 	CRect m_rectWindow;
 	CPoint m_ptCursor;
+
+// Member functions
+public:
+	void ShowWindowWithEffect(POINT ptCursor, CRect rectWindow, DWORD dwTime);
+
+// Message handlers
+public:
+	DECLARE_MESSAGE_MAP()
+	virtual BOOL OnInitDialog();
+	afx_msg void OnPaint();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
