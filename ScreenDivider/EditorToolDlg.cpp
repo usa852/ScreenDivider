@@ -62,9 +62,14 @@ void CEditorToolDlg::OnBnClickedButtonNew()
 	switch (ret)
 	{
 	case IDYES:OnBnClickedButtonSave();
+		// Init datas
+		m_sSDFormPath = L"";
+		((CEditorDlg *)GetParent())->DestroyVirtualWindows();
 		break;
 	case IDNO:
-		// Init sdForm
+		// Init datas
+		m_sSDFormPath = L"";
+		((CEditorDlg *)GetParent())->DestroyVirtualWindows();
 		break;
 	case IDCANCEL:
 		break;

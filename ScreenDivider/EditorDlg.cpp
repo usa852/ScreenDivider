@@ -28,12 +28,8 @@ CArray<CEditorWindowDlg *> *CEditorDlg::GetVirtualWindows(void)
 
 void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
 {
-	// Remove existing virtual windows
-	while (!m_arrPVirtualWindow.IsEmpty())
-	{
-		m_arrPVirtualWindow[0]->EndDialog(IDOK);
-		m_arrPVirtualWindow.RemoveAt(0);
-	}
+	
+	DestroyVirtualWindows();
 
 	int i = 1;
 	while (TRUE)
@@ -63,6 +59,16 @@ void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
 		m_arrPVirtualWindow.Add(pDlgVirtualWindow);
 
 		i++;
+	}
+}
+
+void CEditorDlg::DestroyVirtualWindows()
+{
+	// Remove existing virtual windows
+	while (!m_arrPVirtualWindow.IsEmpty())
+	{
+		m_arrPVirtualWindow[0]->EndDialog(IDOK);
+		m_arrPVirtualWindow.RemoveAt(0);
 	}
 }
 
