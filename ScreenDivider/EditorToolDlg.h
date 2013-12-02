@@ -1,4 +1,6 @@
 #pragma once
+#include "EditorFinderDlg.h"
+#include "EditorTransDlg.h"
 
 // CEditorToolDlg dialog
 
@@ -15,6 +17,10 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
+// Child dialogs
+	CEditorFinderDlg *m_pDlgEditorFinder;
+	CEditorTransDlg *m_pDlgEditorTrans;
 
 // Child controls
 	CBitmapButtonEx m_btnNew;
@@ -40,4 +46,6 @@ public:
 	afx_msg void OnBnClickedButtonSaveas();
 	afx_msg void OnBnClickedButtonEnd();
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedButtonFinder();
+	afx_msg void OnBnClickedButtonTrans();
 };
