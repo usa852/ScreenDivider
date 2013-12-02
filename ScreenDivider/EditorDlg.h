@@ -2,6 +2,7 @@
 #include "../Common/SDForm.h"
 #include "../Common/common.h"
 #include "EditorToolDlg.h"
+#include "EditorWindowDlg.h"
 
 // CEditorDlg 대화 상자입니다.
 
@@ -23,7 +24,11 @@ private:
 	CEditorToolDlg *m_pDlgEditorTool;
 	CPoint m_start,m_end;
 	bool m_isDown;
-	CSDForm form;
+	CArray<CEditorWindowDlg *> m_arrPVirtualWindow;
+
+public:
+	CArray<CEditorWindowDlg *> *GetVirtualWindows(void);
+	void CreateVirtualWindows(CSDForm *pSDForm);
 
 	DECLARE_MESSAGE_MAP()
 public:

@@ -30,4 +30,6 @@ private:
 	unsigned int m_uiColor;
 public:
 	virtual BOOL OnInitDialog();
+	virtual void Serialize(CArchive& ar);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };

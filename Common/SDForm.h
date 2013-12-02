@@ -12,18 +12,18 @@ public:
 	~CSDForm(void);
 
 private:
-	CList<CSDWindow> m_lstSDWindow;
+	CArray<CSDWindow> m_arrSDWindow;
 
 public:
 	void Serialize(CArchive& ar);
 	BOOL LoadFromFile(TCHAR strSDFormPath[MAX_PATH]);
 	BOOL SaveToFile(TCHAR strSDFormPath[MAX_PATH]);
-	VOID RemoveSDWindow(POSITION pos);
-	POSITION AddSDWindow(CSDWindow &newSDWindow);
-	POSITION AddSDWindow(int l, int t, int r, int b);
-	POSITION AddSDWindow(POINT topLeft, POINT bottomRight);
-	POSITION AddSDWindow(POINT point, SIZE size);
+	VOID RemoveSDWindow(int idx);
+	INT_PTR AddSDWindow(CSDWindow &newSDWindow);
+	INT_PTR AddSDWindow(int l, int t, int r, int b);
+	INT_PTR AddSDWindow(POINT topLeft, POINT bottomRight);
+	INT_PTR AddSDWindow(POINT point, SIZE size);
 	CSDWindow GetSDWindow(const CPoint& cursor);
-	CSDWindow GetSDWindow(POSITION pos);
 	CSDWindow GetSDWindow(int idx);
+	INT_PTR GetIndexFromSDWindow(CSDWindow curSDWindow);
 };

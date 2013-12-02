@@ -21,4 +21,13 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+
+public:
+	void ShowWindowWithEffect(POINT ptCursor, CRect rectWindow, DWORD dwTime);
+
+	// For effect timer
+private:
+	CRect m_rectWindow;
+	CPoint m_ptCursor;
 };

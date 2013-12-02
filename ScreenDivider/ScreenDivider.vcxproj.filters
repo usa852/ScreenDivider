@@ -67,6 +67,90 @@
     <None Include="res\FINDER.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\NEW.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\NEW_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\NEW_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\NEW_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\OPEN.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\OPEN_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\OPEN_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\OPEN_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVE.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVE_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVE_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVE_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVEAS.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVEAS_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVEAS_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SAVEAS_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FINDER_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FINDER_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FINDER_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TRANS.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TRANS_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TRANS_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TRANS_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\END.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\END_DISABLED.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\END_HOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\END_SEL.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FINDER_ICON.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScreenDivider.h">
@@ -120,6 +204,12 @@
     <ClInclude Include="EditorToolDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorTransDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindowDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ScreenDivider.cpp">
@@ -165,6 +255,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorToolDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorTransDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindowDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

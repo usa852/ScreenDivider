@@ -49,6 +49,8 @@ BOOL CFlatDialogEx::OnInitDialog()
 	CRect rectDialog;
 	GetWindowRect(rectDialog);
 
+	DWORD dwStyle = 0;
+
 	/* Minimize button */
 	m_pBtnMin = new CBitmapButtonEx();
 	m_pBtnMin->Create
@@ -68,6 +70,12 @@ BOOL CFlatDialogEx::OnInitDialog()
 		IDB_BITMAP_MIN_DISABLED
 	);
 	m_pBtnMin->SizeToContent();
+	// Check this dialog has minimize system button
+	dwStyle = m_pBtnMin->GetStyle();
+	if (!(dwStyle & WS_MINIMIZEBOX))
+	{
+		m_pBtnMin->EnableWindow(FALSE);
+	}
 
 	/* Maxmize button */
 	m_pBtnMax = new CBitmapButtonEx();
@@ -88,6 +96,12 @@ BOOL CFlatDialogEx::OnInitDialog()
 		IDB_BITMAP_MAX_DISABLED
 	);
 	m_pBtnMax->SizeToContent();
+	// Check this dialog has maximize system button
+	dwStyle = m_pBtnMax->GetStyle();
+	if (!(dwStyle & WS_MAXIMIZEBOX))
+	{
+		m_pBtnMax->EnableWindow(FALSE);
+	}
 
 	/* Exit button */
 	m_pBtnExit = new CBitmapButtonEx();
@@ -108,6 +122,14 @@ BOOL CFlatDialogEx::OnInitDialog()
 		IDB_BITMAP_EXIT_DISABLED
 	);
 	m_pBtnExit->SizeToContent();
+	// Exception exit button
+	/*
+	dwStyle = m_pBtnExit->GetStyle();
+	if (!(dwStyle & WS_SYSMENU))
+	{
+		m_pBtnExit->EnableWindow(FALSE);
+	}
+	*/
 
 	// Repose system buttons
 	SendMessage(WM_SIZE);
@@ -161,9 +183,6 @@ void CFlatDialogEx::OnPaint()
 	CRect rect;
 	GetWindowRect(rect);
 	rect.MoveToXY(0, 0);
-
-	// Erase background
-	pDC->Rectangle(rect);
 
 	// Fill with transparent
 	CBrush *pOldBrush = NULL;

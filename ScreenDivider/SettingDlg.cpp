@@ -5,8 +5,6 @@
 #include "ScreenDivider.h"
 #include "SettingDlg.h"
 #include "afxdialogex.h"
-#include "SettingGeneralDlg.h"
-#include "SettingStyleDlg.h"
 
 
 // CSettingDlg 대화 상자입니다.
@@ -31,6 +29,9 @@ void CSettingDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CSettingDlg, CFlatDialogEx)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST_SETTINGS, &CSettingDlg::OnLvnItemchangedListSettings)
+	ON_BN_CLICKED(IDCLOSE, &CSettingDlg::OnBnClickedClose)
+	ON_BN_CLICKED(IDC_DEFAULT, &CSettingDlg::OnBnClickedDefault)
+	ON_BN_CLICKED(IDC_SAVE, &CSettingDlg::OnBnClickedSave)
 END_MESSAGE_MAP()
 
 
@@ -53,6 +54,10 @@ BOOL CSettingDlg::OnInitDialog()
 	m_pDlgStyle->MoveWindow(135, 29, 279, 195);
 	m_pDlgStyle->ShowWindow(SW_HIDE);
 
+	CFile file(_T("Setting.dat"), CFile::modeRead);
+	CArchive ar(&file, CArchive::load);
+	Serialize(ar);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -60,7 +65,7 @@ BOOL CSettingDlg::OnInitDialog()
 void CSettingDlg::OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	// TODO: Add your control notification handler code here
+	// TODO: Add your control notifiation handler code here
 	UpdateData(TRUE);
 
 	switch (m_List.GetHotItem())
@@ -77,4 +82,122 @@ void CSettingDlg::OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult)
 
 	UpdateData(FALSE);
 	*pResult = 0;
+}
+
+
+
+
+void CSettingDlg::Serialize(CArchive& ar)
+{
+	if (ar.IsStoring())
+	{	// storing code
+		UpdateData(true);
+		m_pDlgGeneral->Serialize(ar);
+		m_pDlgStyle->Serialize(ar);
+		UpdateData(false);
+	}
+	else
+	{	// loading code
+		m_pDlgGeneral->Serialize(ar);
+		m_pDlgStyle->Serialize(ar);
+	}
+}
+
+void CSettingDlg::OnBnClickedClose()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	EndDialog(IDCANCEL);
+}
+
+
+void CSettingDlg::OnBnClickedDefault()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(true);
+	m_pDlgGeneral->OnInitDialog();
+	m_pDlgStyle->OnInitDialog();
+	UpdateData(false);
+}
+
+
+void CSettingDlg::OnBnClickedSave()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_pDlgGeneral->UpdateData(TRUE);
+	
+	// Open registry key
+	HKEY hKey;
+	LONG regOpen;
+	regOpen = RegCreateKeyEx
+			(
+				HKEY_CURRENT_USER,
+				L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+				0L,
+				NULL,
+				REG_OPTION_NON_VOLATILE,
+				KEY_ALL_ACCESS,
+				NULL,
+				&hKey,
+				NULL
+			);
+
+	// Add or delete key
+	if (regOpen == ERROR_SUCCESS)
+	{
+		if (m_pDlgGeneral->m_bStartAuto)
+		{
+			if (regOpen == ERROR_SUCCESS)
+			{
+				// Get app path
+				TCHAR szPath[MAX_PATH] = {0, };
+				DWORD lenPath;
+				lenPath = GetModuleFileName(AfxGetInstanceHandle(), szPath, MAX_PATH);
+
+				// Set value
+				LONG regSet;
+				regSet = RegSetValueEx
+					(
+						hKey,
+						L"ScreenDivider",
+						0,
+						REG_SZ,
+						(LPBYTE)szPath,
+						MAX_PATH	/* If terminated NULL, OS auto split data */
+					);
+
+				if (regSet != ERROR_SUCCESS)
+				{
+					AfxMessageBox
+						(
+							L"Can't register auto start program\n"
+							L"Please retry later",
+							MB_OK | MB_ICONSTOP
+						);
+				}
+			}
+		}
+		else
+		{
+			LONG regDelete;
+			regDelete = RegDeleteValue(hKey, L"ScreenDivider");
+		}
+	}
+	else
+	{
+		AfxMessageBox
+			(
+				L"Can't register auto start program\n"
+				L"Please retry later",
+				MB_OK | MB_ICONSTOP
+			);
+	}
+
+	// Close hKey
+	RegCloseKey(hKey);
+
+	m_pDlgGeneral->UpdateData(FALSE);
+
+	CFile file(_T("Setting.dat"), CFile::modeCreate | CFile::modeWrite);
+	CArchive ar(&file, CArchive::store);
+	Serialize(ar);
 }

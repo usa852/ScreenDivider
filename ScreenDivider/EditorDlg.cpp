@@ -5,8 +5,7 @@
 #include "ScreenDivider.h"
 #include "EditorDlg.h"
 #include "afxdialogex.h"
-
-
+#include <math.h>
 
 // CEditorDlg 대화 상자입니다.
 
@@ -20,6 +19,51 @@ IMPLEMENT_DYNAMIC(CEditorDlg, CDialogEx)
 
 CEditorDlg::~CEditorDlg()
 {
+}
+
+CArray<CEditorWindowDlg *> *CEditorDlg::GetVirtualWindows(void)
+{
+	return &m_arrPVirtualWindow;
+}
+
+void CEditorDlg::CreateVirtualWindows(CSDForm *pSDForm)
+{
+	// Remove existing virtual windows
+	while (!m_arrPVirtualWindow.IsEmpty())
+	{
+		m_arrPVirtualWindow[0]->EndDialog(IDOK);
+		m_arrPVirtualWindow.RemoveAt(0);
+	}
+
+	int i = 1;
+	while (TRUE)
+	{
+		CSDWindow curSDWindow;
+		curSDWindow = pSDForm->GetSDWindow(i);
+
+		if (curSDWindow.IsRectEmpty())
+		{
+			break;
+		}
+		
+		// Create new virtual window
+		CEditorWindowDlg *pDlgVirtualWindow;
+		pDlgVirtualWindow = new CEditorWindowDlg();
+		pDlgVirtualWindow->Create(IDD_EDITOR_WINDOW_DIALOG, (CWnd *)this);
+		pDlgVirtualWindow->MoveWindow
+			(
+				curSDWindow.left,
+				curSDWindow.top,
+				curSDWindow.Width(),
+				curSDWindow.Height()
+			);
+		pDlgVirtualWindow->ShowWindow(SW_SHOW);
+
+		// Add to list
+		m_arrPVirtualWindow.Add(pDlgVirtualWindow);
+
+		i++;
+	}
 }
 
 void CEditorDlg::DoDataExchange(CDataExchange* pDX)
@@ -45,6 +89,15 @@ void CEditorDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	m_start = point;
 	m_isDown = true;
 	
+	CEditorWindowDlg *pDlgVirtualWindow;
+	pDlgVirtualWindow = new CEditorWindowDlg();
+	pDlgVirtualWindow->Create(IDD_EDITOR_WINDOW_DIALOG, (CWnd *)this);
+	pDlgVirtualWindow->MoveWindow(point.x, point.y, 0, 0);
+	pDlgVirtualWindow->ShowWindow(SW_SHOW);
+
+	m_arrPVirtualWindow.Add(pDlgVirtualWindow);
+
+	SetCapture();
 
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
@@ -54,7 +107,9 @@ void CEditorDlg::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	m_isDown = false;
-	form.AddSDWindow(m_start,m_end);
+
+	ReleaseCapture();
+
 	CDialogEx::OnLButtonUp(nFlags, point);
 }
 
@@ -66,10 +121,11 @@ void CEditorDlg::OnMouseMove(UINT nFlags, CPoint point)
 	if(m_isDown)
 	{
 		m_end = point;
-
-		CDC *pDC;
-		pDC = GetDC();
-		pDC->Rectangle(m_start.x, m_start.y, m_end.x, m_end.y);
+		int x = min(m_start.x, m_end.x);
+		int y = min(m_start.y, m_end.y);
+		
+		m_arrPVirtualWindow[m_arrPVirtualWindow.GetCount() - 1]->
+			MoveWindow(x, y, abs(m_end.x-m_start.x), abs(m_end.y-m_start.y), TRUE);
 	}
 	CDialogEx::OnMouseMove(nFlags, point);
 }

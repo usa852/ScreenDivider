@@ -1,5 +1,6 @@
 #pragma once
-
+#include "SettingGeneralDlg.h"
+#include "SettingStyleDlg.h"
 
 // CSettingDlg 대화 상자입니다.
 
@@ -22,9 +23,15 @@ public:
 	virtual BOOL OnInitDialog();
 
 private:
-	CDialogEx *m_pDlgStyle;
-	CDialogEx *m_pDlgGeneral;
+	CSettingStyleDlg *m_pDlgStyle;
+	CSettingGeneralDlg *m_pDlgGeneral;
 	CListCtrl m_List;
 public:
 	afx_msg void OnLvnItemchangedListSettings(NMHDR *pNMHDR, LRESULT *pResult);
+	virtual void Serialize(CArchive& ar);
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedClose();
+	afx_msg void OnBnClickedDefault();
+	afx_msg void OnBnClickedSave();
 };
